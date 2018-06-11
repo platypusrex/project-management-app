@@ -1,0 +1,11 @@
+.form-group {
+	display: flex;
+	flex-direction: column;
+	padding-bottom: 20px;
+}
+
+.form-group__label {
+	margin-bottom: 5px;
+	font-size: 14px;
+	font-weight: 600;
+}

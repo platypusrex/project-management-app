@@ -1,0 +1,12 @@
+#mask {
+	animation: mask 975ms ease infinite;
+}
+
+@keyframes mask {
+	from {
+		transform: translateX(0)
+	}
+	to {
+		transform: translateX(280px)
+	}
+}

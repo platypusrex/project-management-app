@@ -1,0 +1,15 @@
+.empty-list {
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 15px 0;
+}
+
+.empty-list__title {
+	margin: 0 0 10px;
+}
+
+.empty-list__description {
+	margin: 0;
+}

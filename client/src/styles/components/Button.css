@@ -1,0 +1,16 @@
+.button {
+	color: #fff;
+	background: hsl(206, 73%, 47%);;
+	border-radius: 3px;
+	border: 1px solid hsl(206, 73%, 47%);;
+	padding: 12px 15px;
+	font-size: 15px;
+	text-transform: uppercase;
+	transition: all .15s ease-in-out;
+	cursor: pointer;
+}
+
+.button:hover {
+	background: hsl(206, 73%, 43%);
+	transition: all .15s ease-in-out;
+}

@@ -1,0 +1,19 @@
+.dropdown {
+	width: fit-content;
+	position: relative;
+}
+
+.dropdown__menu-wrapper {
+	position: absolute;
+	z-index: 1000;
+	max-height: 0;
+	overflow: hidden;
+	transition: all .15s ease-in-out;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.125);
+	right: 0;
+}
+
+.dropdown__menu-wrapper--open {
+	max-height: 1000px;
+	transition: all .15s ease-in-out;
+}

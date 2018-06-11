@@ -1,0 +1,10 @@
+.project {
+	padding: 105px 40px 40px;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.project__grid {
+	height: 100%;
+}

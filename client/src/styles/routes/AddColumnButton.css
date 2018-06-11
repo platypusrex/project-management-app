@@ -1,0 +1,19 @@
+.add-column-button {
+	border: 1px dashed #ccc;
+	color: #2a2a2a;
+	border-radius: 3px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #fff;
+	padding: 20px;
+	transition: all .15s ease-in-out;
+	cursor: pointer;
+}
+
+.add-column-button:hover {
+	border-color: cornflowerblue;
+	color: cornflowerblue;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.125);
+	transition: all .15s ease-in-out;
+}
