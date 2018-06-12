@@ -28,7 +28,6 @@ export class Dropdown extends React.Component {
 
 		if (!this.dropdownRef.current.contains(e.target)) {
 			this.setState(ss => ({...ss, isMenuVisible: false}));
-			document.removeEventListener('click', this.handleOutsideClick, false);
 		}
 	};
 
