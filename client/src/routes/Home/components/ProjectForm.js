@@ -41,7 +41,7 @@ const ProjectFormComponent = (props) => {
 			footer={footer}
 			width={450}
 		>
-			<FormGroup label="Project Title">
+			<FormGroup label="Project Title*">
 				<Input
 					type="text"
 					value={title}
@@ -58,7 +58,7 @@ const ProjectFormComponent = (props) => {
 			</FormGroup>
 
 			<FormGroup label="Team">
-				<Select options={options}/>
+				<Select options={options} placeholder="Select team"/>
 			</FormGroup>
 		</Modal>
 	);
