@@ -5,6 +5,7 @@ import { Modal } from "../../../shared/components/Modal";
 import { FormGroup } from "../../../shared/components/FormGroup";
 import { Input } from "../../../shared/components/Input";
 import { Button } from "../../../shared/components/Button";
+import { Select } from '../../../shared/components/Select';
 import { withState } from "../../../shared/containers/withState";
 import { withCreateProject } from "../../../api/project/withCreateProject";
 import { withUpdateProjectById } from "../../../api/project/withUpdateProjectById";
@@ -15,6 +16,13 @@ const initialState = {
 	isSubmitting: false,
 	errors: {},
 };
+
+const options = [
+	{value: 'one', label: 'One'},
+	{value: 'two', label: 'Two'},
+	{value: 'three', label: 'Three'},
+	{value: 'four', label: 'Four'}
+];
 
 const ProjectFormComponent = (props) => {
 	const { project, dismiss, setState, state } = props;
@@ -47,6 +55,10 @@ const ProjectFormComponent = (props) => {
 					value={description}
 					onChange={description => setState(ss => ({...ss, description}))}
 				/>
+			</FormGroup>
+
+			<FormGroup label="Team">
+				<Select options={options}/>
 			</FormGroup>
 		</Modal>
 	);
