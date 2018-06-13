@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { compose, withHandlers, lifecycle } from 'recompose';
+import { compose, withProps, withHandlers, lifecycle } from 'recompose';
 import { Modal } from "../../../shared/components/Modal";
 import { FormGroup } from "../../../shared/components/FormGroup";
 import { Input } from "../../../shared/components/Input";
@@ -17,15 +17,8 @@ const initialState = {
 	errors: {},
 };
 
-const options = [
-	{value: 'one', label: 'One'},
-	{value: 'two', label: 'Two'},
-	{value: 'three', label: 'Three'},
-	{value: 'four', label: 'Four'}
-];
-
 const ProjectFormComponent = (props) => {
-	const { project, dismiss, setState, state } = props;
+	const { project, teamOptions, dismiss, setState, state } = props;
 	const { title, description } = state;
 
 	const footer = (
@@ -57,9 +50,14 @@ const ProjectFormComponent = (props) => {
 				/>
 			</FormGroup>
 
-			<FormGroup label="Team">
-				<Select options={options} placeholder="Select team"/>
-			</FormGroup>
+      {teamOptions.length && <FormGroup label="Team">
+				<Select
+          options={teamOptions}
+          placeholder="Select team"
+          defaultValue={teamOptions[0]}
+          onChange={value => console.log(value)}
+        />
+			</FormGroup>}
 		</Modal>
 	);
 };
@@ -67,13 +65,24 @@ const ProjectFormComponent = (props) => {
 ProjectFormComponent.propsTypes = {
 	dismiss: PropTypes.func.isRequired,
 	userId: PropTypes.number.isRequired,
-	project: PropTypes.object
+	project: PropTypes.object,
+  teams: PropTypes.arrayOf(PropTypes.object)
 };
 
 export const ProjectForm = compose(
 	withState(initialState),
 	withCreateProject,
 	withUpdateProjectById,
+	withProps(props => {
+	  const { teams } = props;
+	  const teamOptions =
+      teams &&
+      teams.map(team => ({value: team.id, label: team.name})) || [];
+
+	  return {
+	    teamOptions
+    };
+  }),
 	lifecycle({
 		componentDidMount: function () {
 			const { project, setState } = this.props;
