@@ -11,13 +11,13 @@ export class Select extends React.Component {
 
     this.state = {
       isOptionsMenuOpen: false,
-      selectedOption: null
+      selectedValue: null
     };
   }
 
   static getDerivedStateFromProps (props, state) {
-    if (props.defaultValue && !state.selectedOption) {
-      return {...state, selectedOption: props.defaultValue};
+    if (props.defaultValue && !state.selectedValue) {
+      return {...state, selectedValue: props.defaultValue};
     }
 
     return state;
@@ -41,37 +41,41 @@ export class Select extends React.Component {
     }
   };
 
-  handleOptionClick = (option) => {
-    const { selectedOption } = this.state;
+  handleOptionClick = (value) => {
+    const { selectedValue } = this.state;
 
-    if (Object.is(option, selectedOption)) {
+    if (value === selectedValue) {
       return;
     }
 
-    this.setState(ss => ({...ss, selectedOption: option, isOptionsMenuOpen: false}));
-    this.props.onChange(option.value);
+    this.setState(ss => ({...ss, selectedValue: value, isOptionsMenuOpen: false}));
+    this.props.onChange(value);
   };
 
   getWrapperClassName = (className) => {
     return this.state.isOptionsMenuOpen ? `${className} ${className}--open` : className;
   };
 
-  getOptionClassName = (option) => {
+  getOptionClassName = (value) => {
     const { optionPrefixCls } = this.props;
-    const { selectedOption } = this.state;
+    const { selectedValue } = this.state;
 
-    return option.value == selectedOption.value ? `${optionPrefixCls} ${optionPrefixCls}--selected` : optionPrefixCls;
+    if (!selectedValue) {
+      return optionPrefixCls;
+    }
+
+    return value === selectedValue ? `${optionPrefixCls} ${optionPrefixCls}--selected` : optionPrefixCls;
   };
 
   getPlaceholder = () => {
-    const { placeholder } = this.props;
-    const { selectedOption } = this.state;
+    const { placeholder, options } = this.props;
+    const { selectedValue } = this.state;
 
-    if (!selectedOption) {
+    if (!selectedValue) {
       return placeholder || 'Choose one...';
     }
 
-    return selectedOption.label;
+    return options.find(option => option.value === selectedValue).label;
   };
 
   render () {
@@ -95,8 +99,8 @@ export class Select extends React.Component {
           {options.map((option, i) => (
             <div
               key={i}
-              className={this.getOptionClassName(option)}
-              onClick={() => this.handleOptionClick(option)}
+              className={this.getOptionClassName(option.value)}
+              onClick={() => this.handleOptionClick(option.value)}
             >
               <span className="select__option__text">{option.label}</span>
             </div>
@@ -123,10 +127,7 @@ Select.propTypes = {
 			label: PropTypes.string
 		})
 	),
-  defaultValue: PropTypes.shape({
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    label: PropTypes.string
-  }),
+  defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   placeholder: PropTypes.string,
   onChange: PropTypes.func
 };
