@@ -17,7 +17,7 @@ export const projectTypes = `
 	
 	type Mutation {
 		createProject (title: String!, description: String, createdBy: Int!, teamId: Int): Project!
-		updateProjectById (projectId: Int!, title: String, description: String): Project!
+		updateProjectById (projectId: Int!, title: String, description: String, teamId: Int): Project!
 		deleteProject (projectId: Int!): Boolean!
 	}
 `;
