@@ -15,6 +15,14 @@ export class Select extends React.Component {
     };
   }
 
+  static getDerivedStateFromProps (props, state) {
+    if (props.defaultValue && !state.selectedOption) {
+      return {...state, selectedOption: props.defaultValue};
+    }
+
+    return state;
+  }
+
   componentDidMount () {
     document.addEventListener('click', this.handleClickOutside, false);
   }
@@ -40,26 +48,37 @@ export class Select extends React.Component {
       return;
     }
 
-    this.setState(ss => ({...ss, selectedOption: option, isOptionsMenuOpen: false}))
+    this.setState(ss => ({...ss, selectedOption: option, isOptionsMenuOpen: false}));
+    this.props.onChange(option.value);
+  };
+
+  getWrapperClassName = (className) => {
+    return this.state.isOptionsMenuOpen ? `${className} ${className}--open` : className;
   };
 
   getOptionClassName = (option) => {
     const { optionPrefixCls } = this.props;
     const { selectedOption } = this.state;
 
-    return Object.is(option, selectedOption) ? `${optionPrefixCls} ${optionPrefixCls}--selected` : optionPrefixCls;
+    return option.value == selectedOption.value ? `${optionPrefixCls} ${optionPrefixCls}--selected` : optionPrefixCls;
+  };
+
+  getPlaceholder = () => {
+    const { placeholder } = this.props;
+    const { selectedOption } = this.state;
+
+    if (!selectedOption) {
+      return placeholder || 'Choose one...';
+    }
+
+    return selectedOption.label;
   };
 
   render () {
-    const { options, placeholder, selectTextPrefixCls, optionsWrapperPrefixCls } = this.props;
-    const { isOptionsMenuOpen, selectedOption } = this.state;
-    const optionsWrapperClass = isOptionsMenuOpen ?
-      `${optionsWrapperPrefixCls} ${optionsWrapperPrefixCls}--open` :
-      optionsWrapperPrefixCls;
-    const selectTextClass = isOptionsMenuOpen ?
-      `${selectTextPrefixCls} ${selectTextPrefixCls}--open` :
-      selectTextPrefixCls;
-    const placeHolder = (selectedOption && selectedOption.label) || (placeholder || 'Choose one...');
+    const { options, selectTextPrefixCls, optionsWrapperPrefixCls } = this.props;
+    const optionsWrapperClass = this.getWrapperClassName(optionsWrapperPrefixCls);
+    const selectTextClass = this.getWrapperClassName(selectTextPrefixCls);
+    const placeHolder = this.getPlaceholder();
 
     return (
       <div className="select" ref={this.selectRef}>
@@ -100,10 +119,14 @@ Select.defaultProps = {
 Select.propTypes = {
 	options: PropTypes.arrayOf(
 		PropTypes.shape({
-			value: PropTypes.string,
+			value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 			label: PropTypes.string
 		})
 	),
-  defaultValue: PropTypes.string,
-  placeholder: PropTypes.string
+  defaultValue: PropTypes.shape({
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    label: PropTypes.string
+  }),
+  placeholder: PropTypes.string,
+  onChange: PropTypes.func
 };
