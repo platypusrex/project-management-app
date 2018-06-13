@@ -4,8 +4,8 @@ import { UserByIdQuery } from "../user/withUserById";
 import { getUserId } from "../../shared/utils/localStorageUtil";
 
 const UpdateProjectByIdMutation = gql`
-	mutation ($projectId: Int!, $title: String, $description: String) {
-		updateProjectById (projectId: $projectId, title: $title, description: $description) {
+	mutation ($projectId: Int!, $title: String, $description: String, $teamId: Int) {
+		updateProjectById (projectId: $projectId, title: $title, description: $description, teamId: $teamId) {
       id
       title
       description
