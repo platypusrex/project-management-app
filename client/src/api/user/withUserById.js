@@ -26,6 +26,10 @@ export const UserByIdQuery = gql`
 					id
 					username
 				}
+				team {
+				  id
+				  name
+				}
 			}
 		}
 	}
