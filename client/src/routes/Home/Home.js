@@ -17,7 +17,7 @@ const HomeComponent = (props) => {
 				</div>
 
 				<div className="col-9_sm-12">
-					<ProjectCard projects={projects} userId={userId}/>
+					<ProjectCard projects={projects} teams={teams} userId={userId}/>
 				</div>
 			</div>
 		</div>
