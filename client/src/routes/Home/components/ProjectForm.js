@@ -13,6 +13,7 @@ import { withUpdateProjectById } from "../../../api/project/withUpdateProjectByI
 const initialState = {
 	title: '',
 	description: '',
+  teamId: null,
 	isSubmitting: false,
 	errors: {},
 };
@@ -50,12 +51,13 @@ const ProjectFormComponent = (props) => {
 				/>
 			</FormGroup>
 
-      {teamOptions.length && <FormGroup label="Team">
+      {teamOptions.length &&
+      <FormGroup label="Team">
 				<Select
           options={teamOptions}
           placeholder="Select team"
-          defaultValue={teamOptions[0]}
-          onChange={value => console.log(value)}
+          defaultValue={state.teamId}
+          onChange={teamId => setState(ss => ({...ss, teamId}))}
         />
 			</FormGroup>}
 		</Modal>
@@ -93,15 +95,16 @@ export const ProjectForm = compose(
 
 			const title = project.title || '';
 			const description = project.description || '';
+			const teamId = project.team ? project.team.id : null;
 
-			setState(ss => ({...ss, title, description}))
+			setState(ss => ({...ss, title, description, teamId}));
 		}
 	}),
 	withHandlers({
 		handleSubmit: (props) => async (e) => {
 			e.preventDefault();
 			const { state, setState, userId, project } = props;
-			const { title, description, isSubmitting, errors } = state;
+			const { title, description, teamId, isSubmitting, errors } = state;
 
 			if (isSubmitting) {
 				return;
@@ -110,8 +113,9 @@ export const ProjectForm = compose(
 			if (project && project.id) {
 				try {
 					setState(ss => ({...ss, isSubmitting: true}));
+					const currentTeamId = project.team && project.team.id;
 					const projectPatch = {
-						projectId: project.id
+						projectId: project.id,
 					};
 
 					if (title !== project.title) {
@@ -121,6 +125,10 @@ export const ProjectForm = compose(
 					if (description !== project.description) {
 						projectPatch.description = description;
 					}
+
+					if (teamId !== currentTeamId) {
+					  projectPatch.teamId = teamId;
+          }
 
 					await props.updateProjectById(projectPatch);
 					setState(ss => ({...ss, isSubmitting: false}));
@@ -132,7 +140,7 @@ export const ProjectForm = compose(
 			} else {
 				try {
 					setState(ss => ({...ss, isSubmitting: true}));
-					await props.createProject({title, description, createdBy: userId});
+					await props.createProject({title, description, teamId, createdBy: userId});
 					setState(ss => ({...ss, isSubmitting: false}));
 					props.dismiss();
 				} catch (err) {
