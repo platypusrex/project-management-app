@@ -110,43 +110,43 @@ export const ProjectForm = compose(
 				return;
 			}
 
-			if (project && project.id) {
-				try {
-					setState(ss => ({...ss, isSubmitting: true}));
-					const currentTeamId = project.team && project.team.id;
-					const projectPatch = {
-						projectId: project.id,
-					};
+			if (!project) {
+        try {
+          setState(ss => ({...ss, isSubmitting: true}));
+          await props.createProject({title, description, teamId, createdBy: userId});
+          setState(ss => ({...ss, isSubmitting: false}));
+          props.dismiss();
+        } catch (err) {
+          setState(ss => ({...ss, isSubmitting: false}));
+          console.log(`handleCreateTeam: ${err}`);
+        }
+			} else {
+        try {
+          setState(ss => ({...ss, isSubmitting: true}));
+          const currentTeamId = project.team && project.team.id;
+          const projectPatch = {
+            projectId: project.id,
+          };
 
-					if (title !== project.title) {
-						projectPatch.title = title;
-					}
-
-					if (description !== project.description) {
-						projectPatch.description = description;
-					}
-
-					if (teamId !== currentTeamId) {
-					  projectPatch.teamId = teamId;
+          if (title !== project.title) {
+            projectPatch.title = title;
           }
 
-					await props.updateProjectById(projectPatch);
-					setState(ss => ({...ss, isSubmitting: false}));
-					props.dismiss();
-				} catch (err) {
-					setState(ss => ({...ss, isSubmitting: false}));
-					console.log(`handleUpdateTeam: ${err}`)
-				}
-			} else {
-				try {
-					setState(ss => ({...ss, isSubmitting: true}));
-					await props.createProject({title, description, teamId, createdBy: userId});
-					setState(ss => ({...ss, isSubmitting: false}));
-					props.dismiss();
-				} catch (err) {
-					setState(ss => ({...ss, isSubmitting: false}));
-					console.log(`handleCreateTeam: ${err}`);
-				}
+          if (description !== project.description) {
+            projectPatch.description = description;
+          }
+
+          if (teamId !== currentTeamId) {
+            projectPatch.teamId = teamId;
+          }
+
+          await props.updateProjectById(projectPatch);
+          setState(ss => ({...ss, isSubmitting: false}));
+          props.dismiss();
+        } catch (err) {
+          setState(ss => ({...ss, isSubmitting: false}));
+          console.log(`handleUpdateTeam: ${err}`)
+        }
 			}
 		}
 	})
