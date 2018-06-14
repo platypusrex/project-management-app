@@ -3,6 +3,11 @@
 	position: relative;
 }
 
+.select:hover .select__clear-wrapper {
+  opacity: 1;
+  transition: all .15s ease-in-out;
+}
+
 .select__input {
 	display: none;
 }
@@ -15,6 +20,8 @@
   align-items: center;
   font-size: 14px;
   color: #4a4a4a;
+  position: relative;
+  z-index: 1
 }
 
 .select__text {
@@ -44,13 +51,24 @@
 	transition: all .15s ease-in-out;
 }
 
-.select__text-wrapper .select__icon-wrapper {
+.select__text-wrapper--open .select__icon-wrapper {
+  transform: rotate(180deg);
+  transition: all .15s ease-in-out;
+}
+
+.select__icon-wrapper {
   transition: all .15s ease-in-out;
   height: 18px;
 }
 
-.select__text-wrapper--open .select__icon-wrapper {
-  transform: rotate(180deg);
+.select__clear-wrapper {
+  height: 18px;
+  color: red;
+  margin-right: 4px;
+  opacity: 0;
+  cursor: pointer;
+  position: relative;
+  z-index: 100;
   transition: all .15s ease-in-out;
 }
 
