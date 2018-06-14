@@ -86,38 +86,38 @@ export const TeamForm = compose(
 				return;
 			}
 
-			if (team && team.id) {
-				try {
-					setState(ss => ({...ss, isSubmitting: true}));
-					const projectPatch = {
-						teamId: team.id
-					};
-
-					if (name !== team.name) {
-						projectPatch.name = name;
-					}
-
-					if (description !== team.description) {
-						projectPatch.description = description;
-					}
-
-					await props.updateTeamById(projectPatch);
-					setState(ss => ({...ss, isSubmitting: false}));
-					props.dismiss();
-				} catch (err) {
-					setState(ss => ({...ss, isSubmitting: false}));
-					console.log(`handleUpdateTeam: ${err}`)
-				}
+			if (!team) {
+        try {
+          setState(ss => ({...ss, isSubmitting: true}));
+          await props.createTeam({name, description, createdBy: userId});
+          setState(ss => ({...ss, isSubmitting: false}));
+          props.dismiss();
+        } catch (err) {
+          setState(ss => ({...ss, isSubmitting: false}));
+          console.log(`handleCreateTeam: ${err}`);
+        }
 			} else {
-				try {
-					setState(ss => ({...ss, isSubmitting: true}));
-					await props.createTeam({name, description, createdBy: userId});
-					setState(ss => ({...ss, isSubmitting: false}));
-					props.dismiss();
-				} catch (err) {
-					setState(ss => ({...ss, isSubmitting: false}));
-					console.log(`handleCreateTeam: ${err}`);
-				}
+        try {
+          setState(ss => ({...ss, isSubmitting: true}));
+          const projectPatch = {
+            teamId: team.id
+          };
+
+          if (name !== team.name) {
+            projectPatch.name = name;
+          }
+
+          if (description !== team.description) {
+            projectPatch.description = description;
+          }
+
+          await props.updateTeamById(projectPatch);
+          setState(ss => ({...ss, isSubmitting: false}));
+          props.dismiss();
+        } catch (err) {
+          setState(ss => ({...ss, isSubmitting: false}));
+          console.log(`handleUpdateTeam: ${err}`)
+        }
 			}
 		}
 	})
