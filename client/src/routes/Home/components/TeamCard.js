@@ -10,7 +10,7 @@ import { withState } from "../../../shared/containers/withState";
 import { emptyTeamList } from "../../../shared/constants/homeConstants";
 
 const initialState = {
-	isAddTeamModalVisible: false,
+	isTeamFormVisible: false,
 	selectedTeam: null,
 };
 
@@ -37,12 +37,12 @@ const TeamCardComponent = (props) => {
 					<TeamListItem
 						key={team.id}
 						team={team}
-						editTeam={team => props.handleShowModal(team)}
+						editTeam={team => props.handleShowModalWithTeam(team)}
 					/>
 				))}
 			</List>}
 
-			{state.isAddTeamModalVisible &&
+			{state.isTeamFormVisible &&
 			<TeamForm
 				dismiss={props.handleHideModal}
 				userId={userId}
@@ -60,9 +60,10 @@ TeamCardComponent.propTypes = {
 export const TeamCard = compose(
   withState(initialState),
 	withHandlers({
-		handleShowModal: (props) => (team) =>
-			props.setState(ss => ({...ss, selectedTeam: team || null, isAddTeamModalVisible: true})),
+    handleShowModal: (props) => () => props.setState(ss => ({...ss, isTeamFormVisible: true})),
+		handleShowModalWithTeam: (props) => (team) =>
+			props.setState(ss => ({...ss, selectedTeam: team, isTeamFormVisible: true})),
 		handleHideModal: (props) => () =>
-			props.setState(ss => ({...ss, selectedTeam: null, isAddTeamModalVisible: false}))
+			props.setState(ss => ({...ss, selectedTeam: null, isTeamFormVisible: false}))
 	})
 )(TeamCardComponent);
