@@ -58,6 +58,7 @@ const ProjectFormComponent = (props) => {
           placeholder="Select team"
           defaultValue={state.teamId}
           onChange={teamId => setState(ss => ({...ss, teamId}))}
+          canClear
         />
 			</FormGroup>}
 		</Modal>
