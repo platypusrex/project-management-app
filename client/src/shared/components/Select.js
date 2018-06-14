@@ -78,8 +78,25 @@ export class Select extends React.Component {
     return options.find(option => option.value === selectedValue).label;
   };
 
+  handleClickSelect = (e) => {
+    if (e.target.parentNode.classList.contains('select__clear-wrapper')) {
+      return;
+    }
+
+    this.setState(ss => ({...ss, isOptionsMenuOpen: !ss.isOptionsMenuOpen}));
+  };
+
+  handleClearSelectedValue = () => {
+    if (!this.state.selectedValue) {
+      return;
+    }
+
+    this.setState(ss => ({...ss, selectedValue: null}));
+    this.props.onChange(null);
+  };
+
   render () {
-    const { options, selectTextPrefixCls, optionsWrapperPrefixCls } = this.props;
+    const { options, canClear, selectTextPrefixCls, optionsWrapperPrefixCls } = this.props;
     const optionsWrapperClass = this.getWrapperClassName(optionsWrapperPrefixCls);
     const selectTextClass = this.getWrapperClassName(selectTextPrefixCls);
     const placeHolder = this.getPlaceholder();
@@ -88,9 +105,15 @@ export class Select extends React.Component {
       <div className="select" ref={this.selectRef}>
         <div
           className={selectTextClass}
-          onClick={() => this.setState(ss => ({...ss, isOptionsMenuOpen: !ss.isOptionsMenuOpen}))}
+          onClick={this.handleClickSelect}
         >
           <span className="select__text">{placeHolder}</span>
+
+          {canClear &&
+          <div className="select__clear-wrapper" onClick={this.handleClearSelectedValue}>
+            <Icon icon="ios-close-circle-outline" fontSize="18px"/>
+          </div>}
+
           <div className="select__icon-wrapper">
             <Icon icon="ios-arrow-down" fontSize="18px"/>
           </div>
@@ -129,5 +152,6 @@ Select.propTypes = {
 	),
   defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   placeholder: PropTypes.string,
+  canClear: PropTypes.bool,
   onChange: PropTypes.func
 };
