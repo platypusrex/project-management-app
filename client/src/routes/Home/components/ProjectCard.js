@@ -10,60 +10,61 @@ import { withState } from "../../../shared/containers/withState";
 import { emptyProjectCard } from "../../../shared/constants/homeConstants";
 
 const initialState = {
-	isAddProjectModalVisible: false,
-	selectedProject: null,
+  isAddProjectModalVisible: false,
+  selectedProject: null,
 };
 
 const ProjectCardComponent = (props) => {
-	const { projects, teams, userId, state } = props;
+  const { projects, teams, userId, state } = props;
 
-	const extra = (
-		<a style={{fontSize: '12px'}} onClick={props.handleShowModal}>
-			add project
-		</a>
-	);
+  const extra = (
+    <a style={{fontSize: '12px'}} onClick={props.handleShowModal}>
+      add project
+    </a>
+  );
 
-	return (
-		<Card title="Projects" extra={extra} bodyStyle={{padding: '0 15px'}}>
-			{!projects.length &&
-			<EmptyList
-				title={emptyProjectCard.title}
-				description={emptyProjectCard.description}
-			/>}
+  return (
+    <Card title="Projects" extra={extra} bodyStyle={{padding: '0 15px'}}>
+      {!projects.length &&
+      <EmptyList
+        title={emptyProjectCard.title}
+        description={emptyProjectCard.description}
+      />}
 
-			{!!(projects.length) &&
-			<List>
-				{projects.map(project => (
-					<ProjectListItem
-						key={project.id}
-						project={project}
-						editProject={project => props.handleShowModal(project)}
-					/>
-				))}
-			</List>}
+      {!!(projects.length) &&
+      <List>
+        {projects.map(project => (
+          <ProjectListItem
+            key={project.id}
+            project={project}
+            editProject={project => props.handleShowModalWithProject(project)}
+          />
+        ))}
+      </List>}
 
-			{state.isAddProjectModalVisible &&
-			<ProjectForm
-				dismiss={props.handleHideModal}
-				userId={userId}
-				project={state.selectedProject}
+      {state.isAddProjectModalVisible &&
+      <ProjectForm
+        dismiss={props.handleHideModal}
+        userId={userId}
+        project={state.selectedProject}
         teams={teams}
-			/>}
-		</Card>
-	);
+      />}
+    </Card>
+  );
 };
 
 ProjectCardComponent.propTypes = {
-	projects: PropTypes.arrayOf(PropTypes.object),
+  projects: PropTypes.arrayOf(PropTypes.object),
   teams: PropTypes.arrayOf(PropTypes.object)
 };
 
 export const ProjectCard = compose(
-	withState(initialState),
-	withHandlers({
-		handleShowModal: (props) => (project) =>
-			props.setState(ss => ({...ss, selectedProject: project || null, isAddProjectModalVisible: true})),
-		handleHideModal: (props) => () =>
-			props.setState(ss => ({...ss, selectedProject: null, isAddProjectModalVisible: false})),
-	})
+  withState(initialState),
+  withHandlers({
+    handleShowModal: (props) => () => props.setState(ss => ({...ss, isAddProjectModalVisible: true})),
+    handleShowModalWithProject: (props) => (project) =>
+      props.setState(ss => ({...ss, selectedProject: project, isAddProjectModalVisible: true})),
+    handleHideModal: (props) => () =>
+      props.setState(ss => ({...ss, selectedProject: null, isAddProjectModalVisible: false})),
+  })
 )(ProjectCardComponent);
