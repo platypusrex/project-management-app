@@ -9,7 +9,17 @@ export const teamResolvers = {
 		getAllTeams: (parent, args, {models}) => models.Team.findAll(),
 		getTeamById: (parent, {teamId}, {models}) => models.Team.findOne({
 			where: {id: teamId}
-		})
+		}),
+    getTeamsByUserId: (parent, {userId}, {models}) => models.Team.findAll({
+      include: [
+        {
+          model: models.User,
+          where: { id: userId }
+        }
+      ]
+    }, {
+      raw: true
+    })
 	},
 
 	Mutation: {
