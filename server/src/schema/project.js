@@ -13,6 +13,7 @@ export const projectTypes = `
 	type Query {
 		getAllProjects: [Project]!
 		getProjectById (projectId: Int!): Project!
+		getProjectsByUserId (userId: Int!): [Project]
 	}
 	
 	type Mutation {
