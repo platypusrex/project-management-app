@@ -13,18 +13,30 @@ export const projectResolvers = {
 
 	Query: {
 		getAllProjects: (parent, args, {models}) => models.Project.findAll({
-			include: [{
-				as: 'workers',
-				model: models.User
-			}]
+			include: [
+			  {
+          as: 'workers',
+          model: models.User
+        }
+			]
 		}),
 		getProjectById: (parent, {projectId}, {models}) => models.Project.findOne({
 			where: {id: projectId},
-			include: [{
-				as: 'workers',
-				model: models.User
-			}]
-		})
+			include: [
+			  {
+          as: 'workers',
+          model: models.User
+        }
+			]
+		}),
+    getProjectsByUserId: (parent, {userId}, {models}) => models.Project.findAll({
+      include: [
+        {
+          model: models.User,
+          where: { id: userId }
+        }
+      ]
+    })
 	},
 
 	Mutation: {
