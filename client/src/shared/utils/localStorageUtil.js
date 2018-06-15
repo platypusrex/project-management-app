@@ -15,6 +15,11 @@ export function storeAuthToken (token) {
 	localStorage.setItem(tokenKey, token);
 }
 
+export function removeAuthToken () {
+  localStorage.removeItem(tokenKey);
+  localStorage.removeItem(userIdKey);
+}
+
 export function storeUserId (userId) {
 	localStorage.removeItem(userIdKey);
 	localStorage.setItem(userIdKey, userId);
