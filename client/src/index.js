@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch} from 'react-router-dom';
 import { ApolloProvider } from 'react-apollo';
 import { AuthProvider } from "./shared/containers/withAuth";
 import { apolloClient } from "./api/apiGraphqlUtil";
+import 'normalize.css';
 import 'typeface-oxygen';
 import 'typeface-open-sans';
 import 'gridlex';
