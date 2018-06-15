@@ -1,0 +1,25 @@
+.user-menu {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px 5px;
+}
+
+.user-menu:hover .user-menu__username {
+  color: #5a5a5a;
+}
+
+/*.user-menu svg {*/
+  /*transition: all .15s ease-in-out;*/
+/*}*/
+
+/*.user-menu--open svg {*/
+  /*transform: rotate(180deg);*/
+  /*transition: all .15s ease-in-out;*/
+/*}*/
+
+.user-menu__username {
+  font-size: 14px;
+  color: #2a2a2a;
+  margin-right: 10px;
+}
