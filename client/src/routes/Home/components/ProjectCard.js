@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { compose, withHandlers } from 'recompose';
+import { compose, withHandlers, withProps } from 'recompose';
 import { Card } from "../../../shared/components/Card";
 import { ProjectForm } from "./ProjectForm";
 import { EmptyList } from "../../../shared/components/EmptyList";
@@ -8,6 +8,7 @@ import { List } from "../../../shared/components/List";
 import { ProjectListItem } from "./ProjectListItem";
 import { withState } from "../../../shared/containers/withState";
 import { emptyProjectCard } from "../../../shared/constants/homeConstants";
+import { withProjectsByUserId } from "../../../api/project/withProjectsByUserId";
 
 const initialState = {
   isAddProjectModalVisible: false,
@@ -54,12 +55,22 @@ const ProjectCardComponent = (props) => {
 };
 
 ProjectCardComponent.propTypes = {
-  projects: PropTypes.arrayOf(PropTypes.object),
-  teams: PropTypes.arrayOf(PropTypes.object)
+  userId: PropTypes.number.isRequired,
 };
 
 export const ProjectCard = compose(
+  withProjectsByUserId,
   withState(initialState),
+  withProps(props => {
+    const { projectsData } = props;
+    const projects =
+      projectsData &&
+      projectsData.getProjectsByUserId || [];
+
+    return {
+      projects,
+    }
+  }),
   withHandlers({
     handleShowModal: (props) => () => props.setState(ss => ({...ss, isAddProjectModalVisible: true})),
     handleShowModalWithProject: (props) => (project) =>

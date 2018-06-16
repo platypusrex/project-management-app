@@ -1,8 +1,8 @@
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import { UserByIdQuery } from "../user/withUserById";
+import { ProjectsByUserIdQuery } from "./withProjectsByUserId";
 
-const CreateCProjectMutation = gql`
+const CreateProjectMutation = gql`
 	mutation ($title: String!, $description: String, $createdBy: Int!, $teamId: Int) {
 		createProject (title: $title, description: $description, createdBy: $createdBy, teamId: $teamId) {
 			id 
@@ -12,14 +12,14 @@ const CreateCProjectMutation = gql`
 	}
 `;
 
-export const withCreateProject = graphql(CreateCProjectMutation, {
+export const withCreateProject = graphql(CreateProjectMutation, {
 	props: ({ownProps, mutate}) => ({
 		createProject: (variables) => {
 			const options = {
 				variables,
-				mutation: CreateCProjectMutation,
+				mutation: CreateProjectMutation,
 				refetchQueries: [{
-					query: UserByIdQuery,
+					query: ProjectsByUserIdQuery,
 					variables: {
 						userId: variables.createdBy
 					}

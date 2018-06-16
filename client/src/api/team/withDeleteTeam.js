@@ -1,6 +1,6 @@
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import { UserByIdQuery } from "../user/withUserById";
+import { TeamsByUserIdQuery } from "./withTeamsByUserId";
 import { getUserId } from "../../shared/utils/localStorageUtil";
 
 const DeleteTeamMutation = gql`
@@ -18,7 +18,7 @@ export const withDeleteTeam = graphql(DeleteTeamMutation, {
 				variables,
 				mutation: DeleteTeamMutation,
 				refetchQueries: [{
-					query: UserByIdQuery,
+					query: TeamsByUserIdQuery,
 					variables: {
 						userId
 					},
