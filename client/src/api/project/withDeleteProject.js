@@ -1,6 +1,6 @@
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import { UserByIdQuery } from "../user/withUserById";
+import { ProjectsByUserIdQuery } from "./withProjectsByUserId";
 import { getUserId } from "../../shared/utils/localStorageUtil";
 
 const DeleteProjectMutation = gql`
@@ -17,7 +17,7 @@ export const withDeleteProject = graphql(DeleteProjectMutation, {
 				variables,
 				mutation: DeleteProjectMutation,
 				refetchQueries: [{
-					query: UserByIdQuery,
+					query: ProjectsByUserIdQuery,
 					variables: {
 						userId
 					}
