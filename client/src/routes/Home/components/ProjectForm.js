@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { compose, withProps, withHandlers, lifecycle } from 'recompose';
+import { compose, withHandlers, lifecycle } from 'recompose';
 import { Modal } from "../../../shared/components/Modal";
 import { FormGroup } from "../../../shared/components/FormGroup";
 import { Input } from "../../../shared/components/Input";
 import { Button } from "../../../shared/components/Button";
-import { Select } from '../../../shared/components/Select';
+import { TeamSelect } from "../../../shared/components/TeamSelect";
 import { withState } from "../../../shared/containers/withState";
 import { withCreateProject } from "../../../api/project/withCreateProject";
 import { withUpdateProjectById } from "../../../api/project/withUpdateProjectById";
@@ -19,7 +19,7 @@ const initialState = {
 };
 
 const ProjectFormComponent = (props) => {
-	const { project, teamOptions, dismiss, setState, state } = props;
+	const { project, dismiss, setState, state } = props;
 	const { title, description } = state;
 
 	const footer = (
@@ -51,16 +51,10 @@ const ProjectFormComponent = (props) => {
 				/>
 			</FormGroup>
 
-      {teamOptions.length &&
-      <FormGroup label="Team">
-				<Select
-          options={teamOptions}
-          placeholder="Select team"
-          defaultValue={state.teamId}
-          onChange={teamId => setState(ss => ({...ss, teamId}))}
-          canClear
-        />
-			</FormGroup>}
+      <TeamSelect
+        defaultValue={state.teamId}
+        onChange={teamId => setState(ss => ({...ss, teamId}))}
+      />
 		</Modal>
 	);
 };
@@ -76,16 +70,6 @@ export const ProjectForm = compose(
 	withState(initialState),
 	withCreateProject,
 	withUpdateProjectById,
-	withProps(props => {
-	  const { teams } = props;
-	  const teamOptions =
-      teams &&
-      teams.map(team => ({value: team.id, label: team.name})) || [];
-
-	  return {
-	    teamOptions
-    };
-  }),
 	lifecycle({
 		componentDidMount: function () {
 			const { project, setState } = this.props;
