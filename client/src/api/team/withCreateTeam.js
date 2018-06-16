@@ -1,6 +1,6 @@
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import { UserByIdQuery } from "../user/withUserById";
+import { TeamsByUserIdQuery } from "./withTeamsByUserId";
 
 const createTeamMutation = gql`
 	mutation ($name: String!, $description: String, $createdBy: Int!) {
@@ -19,7 +19,7 @@ export const withCreateTeam = graphql(createTeamMutation, {
 				variables,
 				mutation: createTeamMutation,
 				refetchQueries: [{
-					query: UserByIdQuery,
+					query: TeamsByUserIdQuery,
 					variables: {
 						userId: variables.createdBy,
 					},
