@@ -1,6 +1,6 @@
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import { UserByIdQuery } from "../user/withUserById";
+import { ProjectsByUserIdQuery } from "./withProjectsByUserId";
 import { getUserId } from "../../shared/utils/localStorageUtil";
 
 const UpdateProjectByIdMutation = gql`
@@ -21,7 +21,7 @@ export const withUpdateProjectById = graphql(UpdateProjectByIdMutation, {
 				variables,
 				mutation: UpdateProjectByIdMutation,
 				refetchQueries: [{
-					query: UserByIdQuery,
+					query: ProjectsByUserIdQuery,
 					variables: {
 						userId
 					}
