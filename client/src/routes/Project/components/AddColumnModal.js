@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { compose, withHandlers } from 'recompose';
+import { compose, withHandlers, lifecycle } from 'recompose';
 import { Modal } from "../../../shared/components/Modal";
 import { FormGroup } from "../../../shared/components/FormGroup";
 import { Input } from "../../../shared/components/Input";
 import { Button } from "../../../shared/components/Button";
 import { withState } from "../../../shared/containers/withState";
 import { withCreateColumn } from "../../../api/column/withCreateColumn";
+import { withUpdateColumnById } from "../../../api/column/withUpdateColumnById";
 
 const initialState = {
 	name: '',
@@ -44,32 +45,66 @@ const AddColumnModalComponent = (props) => {
 
 AddColumnModalComponent.propsTypes = {
 	dismiss: PropTypes.func.isRequired,
-	projectId: PropTypes.number.isRequired
+	projectId: PropTypes.number.isRequired,
+  column: PropTypes.object
 };
 
 export const AddColumnModal = compose(
-	withState(initialState),
-	withCreateColumn,
+  withCreateColumn,
+  withUpdateColumnById,
+  withState(initialState),
+	lifecycle({
+    componentDidMount: function () {
+      const { column, setState} = this.props;
+
+      if (!column) {
+        return;
+      }
+
+      const name = column.name || '';
+
+      setState(ss => ({...ss, name}));
+    }
+  }),
 	withHandlers({
 		handleAddColumn: (props) => async (e) => {
 			e.preventDefault();
-			const { state, setState, projectId } = props;
+			const { column, state, setState, projectId } = props;
 			const { name, isSubmitting, errors } = state;
 
 			if (isSubmitting) {
 				return;
 			}
 
-			try {
-				setState(ss => ({...ss, isSubmitting: true}));
-				const response = await props.createColumn({name, projectId});
-				console.log(response);
-				setState(ss => ({...ss, isSubmitting: false}));
-				props.dismiss();
-			} catch (err) {
-				setState(ss => ({...ss, isSubmitting: false}));
-				console.log(`handleCreateTeam: ${err}`);
-			}
+			if (!column) {
+        try {
+          setState(ss => ({...ss, isSubmitting: true}));
+          await props.createColumn({name, projectId});
+          setState(ss => ({...ss, isSubmitting: false}));
+          props.dismiss();
+        } catch (err) {
+          setState(ss => ({...ss, isSubmitting: false}));
+          console.log(`handleCreateColumn: ${err}`);
+        }
+      } else {
+        const columnPatch = {
+          columnId: column.id
+        };
+
+        if (name !== column.name) {
+          columnPatch.name = name;
+        }
+
+        try {
+          setState(ss => ({...ss, isSubmitting: true}));
+          await props.updateColumnById(columnPatch);
+          setState(ss => ({...ss, isSubmitting: false}));
+          props.dismiss();
+        } catch (err) {
+          setState(ss => ({...ss, isSubmitting: false}));
+          console.log(`handleUpdateColumn: ${err}`)
+        }
+      }
 		}
 	})
 )(AddColumnModalComponent);
