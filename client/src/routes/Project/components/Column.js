@@ -4,7 +4,7 @@ import { compose, withHandlers } from 'recompose';
 import { Card } from "../../../shared/components/Card";
 import { Dropdown } from "../../../shared/components/Dropdown";
 import { DropdownMenu } from "../../../shared/components/DropdownMenu";
-import { AddColumnModal } from "./AddColumnModal";
+import { ColumnForm } from "./ColumnForm";
 import Icon from 'react-ionicons';
 import { withDeleteColumnById } from "../../../api/column/withDeleteColumnById";
 import { withState } from "../../../shared/containers/withState";
@@ -40,7 +40,7 @@ const ColumnComponent = (props) => {
       />
 
       {state.isColumnFormVisible &&
-      <AddColumnModal
+      <ColumnForm
         projectId={projectId}
         dismiss={() => setState(ss => ({...ss, isColumnFormVisible: false}))}
         column={column}

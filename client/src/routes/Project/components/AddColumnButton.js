@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'recompose';
 import { withState } from "../../../shared/containers/withState";
-import { AddColumnModal } from "./AddColumnModal";
+import { ColumnForm } from "./ColumnForm";
 import '../../../styles/routes/AddColumnButton.css';
 
 const initialState = {
@@ -19,7 +19,7 @@ const AddColumnButtonComponent = (props) => {
 			</div>
 
 			{state.isAddColumnModalVisible &&
-			<AddColumnModal
+			<ColumnForm
 				projectId={projectId}
 				dismiss={() => setState(ss => ({...ss, isAddColumnModalVisible: false}))}
 			/>}

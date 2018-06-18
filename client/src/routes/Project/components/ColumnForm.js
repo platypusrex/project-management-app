@@ -15,7 +15,7 @@ const initialState = {
 	errors: {},
 };
 
-const AddColumnModalComponent = (props) => {
+const ColumnFormComponent = (props) => {
 	const { dismiss, setState, state } = props;
 	const { name } = state;
 
@@ -43,13 +43,13 @@ const AddColumnModalComponent = (props) => {
 	);
 };
 
-AddColumnModalComponent.propsTypes = {
+ColumnFormComponent.propsTypes = {
 	dismiss: PropTypes.func.isRequired,
 	projectId: PropTypes.number.isRequired,
   column: PropTypes.object
 };
 
-export const AddColumnModal = compose(
+export const ColumnForm = compose(
   withCreateColumn,
   withUpdateColumnById,
   withState(initialState),
@@ -107,4 +107,4 @@ export const AddColumnModal = compose(
       }
 		}
 	})
-)(AddColumnModalComponent);
+)(ColumnFormComponent);
