@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, withProps, branch, renderComponent } from 'recompose';
-import { Card } from "../../shared/components/Card";
+import { Column } from "./components/Column";
 import { AddColumnButton } from "./components/AddColumnButton";
 import { withProjectById } from "../../api/project/withProjectById";
 import '../../styles/routes/Project.css';
@@ -11,25 +11,18 @@ const ProjectComponent = (props) => {
 
 	return (
 		<div className="project">
-			<div className="grid project__grid">
-				{columns.map(column => (
-					<div key={column.id} className="col-3_md-4_sm-6_xs-12">
-						<Card style={{height: '100%'}}>
-							{column.name}
-						</Card>
-					</div>
-				))}
+      <div className="project__card-grid">
+        {columns.map(column => <Column key={column.id} column={column} projectId={projectId}/>)}
 
-				<div className="col-3_md-4_sm-6_xs-12">
-					<AddColumnButton projectId={projectId}/>
-				</div>
-			</div>
+        <AddColumnButton projectId={projectId}/>
+      </div>
 		</div>
 	);
 };
 
 ProjectComponent.propTypes = {
-	projectId: PropTypes.number
+	projectId: PropTypes.number,
+  columns: PropTypes.arrayOf(PropTypes.object)
 };
 
 export const Project = compose(
@@ -52,5 +45,5 @@ export const Project = compose(
 	}),
 	branch((props) => props.data.loading,
 		renderComponent(() => <span>Loading...</span>)
-	)
+	),
 )(ProjectComponent);
