@@ -15,6 +15,7 @@ export const columnTypes = `
 	
 	type Mutation {
 		createColumn (projectId: Int!, name: String!): Column!
+		updateColumnById (columnId: Int!, name: String): Column!
 		deleteColumnById (columnId: Int!): Boolean!
 	}
 `;
