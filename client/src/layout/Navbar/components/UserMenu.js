@@ -17,8 +17,6 @@ const UserMenuComponent = (props) => {
   const { username, menuPrefixCls, state } = props;
   const menuClass = state.isMenuOpen ? `${menuPrefixCls} ${menuPrefixCls}--open` : menuPrefixCls;
 
-  console.log(props);
-
   const overlay = (
     <DropdownMenu
       menuItems={['profile', 'logout']}
