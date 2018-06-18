@@ -16,6 +16,9 @@ export const columnResolvers = {
 	},
 
 	Mutation: {
-		createColumn: (parent, args, {models}) => models.Column.create(args)
+		createColumn: (parent, args, {models}) => models.Column.create(args),
+    deleteColumnById: (parent, {columnId}, {models}) => models.Column.destroy({
+      where: {id: columnId}
+    })
 	}
 };
