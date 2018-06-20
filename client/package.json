@@ -16,6 +16,8 @@
     "normalize.css": "^8.0.0",
     "react": "^16.4.0",
     "react-apollo": "^2.1.4",
+    "react-dnd": "^5.0.0",
+    "react-dnd-html5-backend": "^5.0.1",
     "react-dom": "^16.4.0",
     "react-ionicons": "^2.1.6",
     "react-router-dom": "^4.2.2",
