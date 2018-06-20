@@ -16,7 +16,7 @@ const initialState = {
 };
 
 const ColumnFormComponent = (props) => {
-	const { dismiss, setState, state } = props;
+	const { column, dismiss, setState, state } = props;
 	const { name } = state;
 
 	const footer = (
@@ -27,7 +27,7 @@ const ColumnFormComponent = (props) => {
 
 	return (
 		<Modal
-			title="Add Column"
+			title={!column ? 'Add Column' : `Edit Column: ${column.name}`}
 			dismiss={dismiss}
 			footer={footer}
 			width={450}
