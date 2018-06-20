@@ -5,12 +5,16 @@ import { Card } from "../../../shared/components/Card";
 import { Dropdown } from "../../../shared/components/Dropdown";
 import { DropdownMenu } from "../../../shared/components/DropdownMenu";
 import { ColumnForm } from "./ColumnForm";
-import Icon from 'react-ionicons';
-import { withDeleteColumnById } from "../../../api/column/withDeleteColumnById";
+import { TaskForm } from "./TaskForm";
+import { Tooltip } from "../../../shared/components/Tooltip";
+import { ColumnTasks } from "./ColumnTasks";
+import { Icon } from "../../../shared/components/Icon";
 import { withState } from "../../../shared/containers/withState";
+import { withDeleteColumnById } from "../../../api/column/withDeleteColumnById";
 
 const initialState = {
-  isColumnFormVisible: false
+  isColumnFormVisible: false,
+  isTaskFormVisible: false
 };
 
 const menuItems = ['Edit column', 'Delete column'];
@@ -26,9 +30,21 @@ const ColumnComponent = (props) => {
   );
 
   const dropdown = (
-    <Dropdown overlay={overlay}>
-      <Icon icon="md-more" fontSize="22px" style={{cursor: 'pointer'}}/>
-    </Dropdown>
+    <div style={{display: 'flex', alignItems: 'center', position: 'relative', right: '-4px'}}>
+      <Tooltip title="Add a new task">
+        <div className="project__add-btn" style={{margin: '0 4px'}}>
+          <Icon
+            icon="md-add"
+            fontSize="22px"
+            style={{cursor: 'pointer'}}
+            onClick={() => setState(ss => ({...ss, isTaskFormVisible: true}))}
+          />
+        </div>
+      </Tooltip>
+      <Dropdown overlay={overlay}>
+        <Icon icon="ios-more" fontSize="24px" style={{cursor: 'pointer'}}/>
+      </Dropdown>
+    </div>
   );
 
   return (
@@ -37,13 +53,21 @@ const ColumnComponent = (props) => {
         className="project__card"
         title={column.name}
         extra={dropdown}
-      />
+      >
+        <ColumnTasks columnId={column.id}/>
+      </Card>
 
       {state.isColumnFormVisible &&
       <ColumnForm
         projectId={projectId}
         dismiss={() => setState(ss => ({...ss, isColumnFormVisible: false}))}
         column={column}
+      />}
+
+      {state.isTaskFormVisible &&
+      <TaskForm
+        columnId={column.id}
+        dismiss={() => setState(ss => ({...ss, isTaskFormVisible: false}))}
       />}
     </React.Fragment>
   );
@@ -68,6 +92,6 @@ export const Column = compose(
       if (menuItem === menuItems[1]) {
         props.deleteColumnById({columnId: column.id})
       }
-    }
+    },
   })
 )(ColumnComponent);
