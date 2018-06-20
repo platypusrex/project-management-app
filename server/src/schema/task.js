@@ -5,14 +5,16 @@ export const taskTypes = `
 		updatedAt: String!
 		task: String!
 		column: Column!
+		creator: User!
 	}
 	
 	type Query {
 		getAllTasks: [Task]!
 		getTaskById (taskId: Int!): Task!
+		getTasksByColumnId (columnId: Int!): [Task]
 	}
 	
 	type Mutation {
-		createTask (task: String!, projectId: Int!): Task!
+		createTask (task: String!, columnId: Int!, createdBy: Int!): Task!
 	}
 `;
