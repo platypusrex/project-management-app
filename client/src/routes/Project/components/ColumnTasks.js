@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, withProps, branch, renderComponent } from 'recompose';
-import { Card } from "../../../shared/components/Card";
+import { Task } from "./Task";
 import { withTasksByColumnId } from "../../../api/task/withTasksByColumnId";
 
 const ColumnTasksComponent = (props) => {
@@ -11,10 +11,7 @@ const ColumnTasksComponent = (props) => {
     <div className="column-tasks grid">
       {tasks.map(task => (
         <div key={task.id} className="col-12">
-          <Card>
-            <h5 style={{margin: '0 0 5px'}}>{task.task}</h5>
-            <span style={{fontSize: '11px'}}>Added by <strong>{task.creator.username}</strong></span>
-          </Card>
+          <Task task={task} handleDrop={id => console.log('id', id)}/>
         </div>
       ))}
     </div>

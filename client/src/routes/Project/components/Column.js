@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, withHandlers } from 'recompose';
+import { DropTarget } from 'react-dnd';
 import { Card } from "../../../shared/components/Card";
 import { Dropdown } from "../../../shared/components/Dropdown";
 import { DropdownMenu } from "../../../shared/components/DropdownMenu";
@@ -11,16 +12,35 @@ import { ColumnTasks } from "./ColumnTasks";
 import { Icon } from "../../../shared/components/Icon";
 import { withState } from "../../../shared/containers/withState";
 import { withDeleteColumnById } from "../../../api/column/withDeleteColumnById";
+import { types } from "../../../shared/constants/dragAndDrop";
 
 const initialState = {
   isColumnFormVisible: false,
   isTaskFormVisible: false
 };
 
+const columnTarget = {
+  drop: (props, monitor, component) => {
+    console.log('drop props', props);
+    console.log('drop monitor', monitor);
+    console.log('drop component', component);
+
+    return {};
+  }
+};
+
 const menuItems = ['Edit column', 'Delete column'];
 
+function collect (connect, monitor) {
+  return {
+    connectDropTarget: connect.dropTarget(),
+    hovered: monitor.isOver(),
+    item: monitor.getItem()
+  }
+}
+
 const ColumnComponent = (props) => {
-  const { column, projectId, state, setState } = props;
+  const { column, projectId, connectDropTarget, state, setState } = props;
 
   const overlay = (
     <DropdownMenu
@@ -47,13 +67,9 @@ const ColumnComponent = (props) => {
     </div>
   );
 
-  return (
-    <React.Fragment>
-      <Card
-        className="project__card"
-        title={column.name}
-        extra={dropdown}
-      >
+  return connectDropTarget(
+    <div className="project__card" style={{height: '100%'}}>
+      <Card title={column.name} extra={dropdown} style={{height: '100%'}}>
         <ColumnTasks columnId={column.id}/>
       </Card>
 
@@ -69,7 +85,7 @@ const ColumnComponent = (props) => {
         columnId={column.id}
         dismiss={() => setState(ss => ({...ss, isTaskFormVisible: false}))}
       />}
-    </React.Fragment>
+    </div>
   );
 };
 
@@ -79,6 +95,7 @@ ColumnComponent.propTypes = {
 };
 
 export const Column = compose(
+  DropTarget(types.TASK, columnTarget, collect),
   withDeleteColumnById,
   withState(initialState),
   withHandlers({
@@ -93,5 +110,8 @@ export const Column = compose(
         props.deleteColumnById({columnId: column.id})
       }
     },
+    handleCardDrop: (props) => () => {
+
+    }
   })
 )(ColumnComponent);
