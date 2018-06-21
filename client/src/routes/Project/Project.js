@@ -11,10 +11,12 @@ const ProjectComponent = (props) => {
 
 	return (
 		<div className="project">
-      <div className="project__card-grid">
+      <div className="project__column-grid">
         {columns.map(column => <Column key={column.id} column={column} projectId={projectId}/>)}
 
-        <AddColumnButton projectId={projectId}/>
+        <div className="project__column">
+          <AddColumnButton projectId={projectId}/>
+        </div>
       </div>
 		</div>
 	);
