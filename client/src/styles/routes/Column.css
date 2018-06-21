@@ -14,3 +14,21 @@
   position: relative;
   right: -4px;
 }
+
+@media only screen and (max-width: 1280px) {
+  .project-column {
+    min-width: 31.25% !important;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .project-column {
+    min-width: 47% !important;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .project-column {
+    min-width: 95.75% !important;
+  }
+}
