@@ -1,20 +1,14 @@
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import { ProjectSmallFragment } from "../fragments/project/projectSmall";
 
 export const ProjectsByUserIdQuery = gql`
   query ($userId: Int!) {
     getProjectsByUserId (userId: $userId) {
-      id 
-      createdAt
-      updatedAt
-      title
-      description
-      team {
-        id
-        name
-      }
+      ...ProjectSmall
     }
   }
+  ${ProjectSmallFragment}
 `;
 
 export const withProjectsByUserId = graphql(ProjectsByUserIdQuery, {

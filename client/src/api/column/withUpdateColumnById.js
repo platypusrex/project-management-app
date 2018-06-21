@@ -1,14 +1,15 @@
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import {ProjectByIdQuery} from "../project/withProjectById";
+import { ProjectByIdQuery } from "../project/withProjectById";
+import { ProjectSmallFragment } from "../fragments/project/projectSmall";
 
 const UpdateColumnByIdMutation = gql`
   mutation ($columnId: Int!, $name: String) {
     updateColumnById (columnId: $columnId, name: $name) {
-      id
-      name
+      ...ProjectSmall
     }
   }
+  ${ProjectSmallFragment}
 `;
 
 export const withUpdateColumnById = graphql(UpdateColumnByIdMutation, {
