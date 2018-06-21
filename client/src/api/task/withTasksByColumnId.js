@@ -8,6 +8,7 @@ export const TasksByColumnIdQuery = gql`
       createdAt
       updatedAt
       task
+      columnId
       creator {
         username
       }
