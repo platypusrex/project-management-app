@@ -4,6 +4,7 @@ export const taskTypes = `
 		createdAt: String!
 		updatedAt: String!
 		task: String!
+		columnId: Int!
 		column: Column!
 		creator: User!
 	}
@@ -15,6 +16,7 @@ export const taskTypes = `
 	}
 	
 	type Mutation {
-		createTask (task: String!, columnId: Int!, createdBy: Int!): Task!
+		createTask (task: String!, columnId: Int!, createdBy: Int!): Task!,
+		updateTaskById (taskId: Int!, columnId: Int, task: String): Task!
 	}
 `;
