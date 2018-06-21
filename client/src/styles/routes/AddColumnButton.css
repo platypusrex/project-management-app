@@ -9,9 +9,7 @@
 	padding: 14px;
 	transition: all .15s ease-in-out;
 	cursor: pointer;
-  min-width: 350px;
   height: 20px;
-  margin-left: 10px;
 }
 
 .add-column-button:hover {
