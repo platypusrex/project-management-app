@@ -1,0 +1,16 @@
+.project-column {
+  height: 100%;
+  min-width: 23.9%;
+  margin: 0 10px;
+}
+
+.project-column__card {
+  height: 100%;
+}
+
+.project-column__card__dropdown {
+  display: flex;
+  align-items: center;
+  position: relative;
+  right: -4px;
+}
