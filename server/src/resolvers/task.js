@@ -19,6 +19,17 @@ export const taskResolvers = {
 	},
 
 	Mutation: {
-		createTask: (parent, args, {models}) => models.Task.create(args)
+		createTask: (parent, args, {models}) => models.Task.create(args),
+    updateTaskById: async (parent, args, {models}) => {
+      const [rowsUpdated, [task]] = await models.Task.update(
+        args,
+        {
+          returning: true,
+          where: {id: args.taskId}
+        }
+      );
+
+      return task;
+    },
 	}
 };
