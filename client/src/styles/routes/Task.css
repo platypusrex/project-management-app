@@ -1,0 +1,17 @@
+.task {
+  transition: all .15s ease-in-out;
+}
+
+.task--dragging {
+  opacity: 0.4;
+  background: #ccc;
+  transition: all .15s ease-in-out;
+}
+
+.task__title {
+  margin: 0 0 5px;
+}
+
+.task__added-by {
+  font-size: 11px;
+}
