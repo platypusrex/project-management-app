@@ -14,7 +14,7 @@ const ProjectComponent = (props) => {
       <div className="project__column-grid">
         {columns.map(column => <Column key={column.id} column={column} projectId={projectId}/>)}
 
-        <div className="project__column">
+        <div className="project-column">
           <AddColumnButton projectId={projectId}/>
         </div>
       </div>
