@@ -5,24 +5,6 @@ import { DragSource } from 'react-dnd';
 import { Card } from "../../../shared/components/Card";
 import { types } from "../../../shared/constants/dragAndDrop";
 
-const cardSource = {
-  beginDrag: (props) => props.task,
-  endDrag: (props, monitor, component) => {
-    if (!monitor.didDrop()) {
-      return;
-    }
-
-    return props.handleDrop(props.task.id);
-  }
-};
-
-function collect (connect, monitor) {
-  return {
-    connectDragSource: connect.dragSource(),
-    connectDragPreview: connect.dragPreview(),
-    isDragging: monitor.isDragging()
-  }
-}
 
 const TaskComponent = (props) => {
   const { task, isDragging, connectDragSource } = props;
@@ -38,9 +20,31 @@ const TaskComponent = (props) => {
 };
 
 TaskComponent.propTypes = {
-  task: PropTypes.object.isRequired
+  task: PropTypes.object.isRequired,
+};
+
+const taskSource = {
+  beginDrag: (props) => props.task,
+  endDrag: async (props, monitor, component) => {
+    if (!monitor.didDrop()) {
+      return;
+    }
+
+    const { task } = props;
+    const newColumnId = monitor.getDropResult().columnId;
+
+    return props.handleDrop(task, newColumnId);
+  }
+};
+
+const collect = (connect, monitor) => {
+  return {
+    connectDragSource: connect.dragSource(),
+    connectDragPreview: connect.dragPreview(),
+    isDragging: monitor.isDragging()
+  }
 };
 
 export const Task = compose(
-  DragSource(types.TASK, cardSource, collect)
+  DragSource(types.TASK, taskSource, collect)
 )(TaskComponent);
