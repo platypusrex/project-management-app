@@ -1,37 +1,45 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { compose, withHandlers } from 'recompose';
+import { compose } from 'recompose';
 import { Tooltip } from "../../../shared/components/Tooltip";
 import { Icon } from "../../../shared/components/Icon";
-import { withCreateTask } from "../../../api/task/withCreateTask";
+import { TaskForm } from "./TaskForm";
 import { withState } from "../../../shared/containers/withState";
+import '../../../styles/routes/AddTaskButton.css';
 
 const initialState = {
   isTaskFormVisible: false
-  isSubmitting: false,
-  task: ''
 };
 
 const AddTaskButtonComponent = (props) => {
+  const { columnId, state, setState } = props;
+
   return (
     <React.Fragment>
       <Tooltip title="Add a new task">
-        <div className="project__add-btn" style={{margin: '0 4px'}}>
-          <Icon icon="md-add" fontSize="22px" style={{cursor: 'pointer'}}/>
+        <div className="add-task-btn">
+          <Icon
+            icon="md-add"
+            fontSize="22px"
+            style={{cursor: 'pointer'}}
+            onClick={() => setState(ss => ({...ss, isTaskFormVisible: true}))}
+          />
         </div>
       </Tooltip>
 
-
+      {state.isTaskFormVisible &&
+      <TaskForm
+        columnId={columnId}
+        dismiss={() => setState(ss => ({...ss, isTaskFormVisible: false}))}
+      />}
     </React.Fragment>
   );
 };
 
+AddTaskButtonComponent.propTypes = {
+  columnId: PropTypes.number.isRequired
+};
+
 export const AddTaskButton = compose(
   withState(initialState),
-  withCreateTask,
-  withHandlers({
-    handleCreateTask: (props) => () => {
-
-    }
-  })
 )(AddTaskButtonComponent);
