@@ -1,16 +1,16 @@
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { TeamsByUserIdQuery } from "./withTeamsByUserId";
+import { TeamSmallFragment } from "../fragments/team/teamSmall";
 import { getUserId } from "../../shared/utils/localStorageUtil";
 
 const UpdateTeamByIdMutation = gql`
 	mutation ($teamId: Int!, $name: String, $description: String) {
 		updateTeamById (teamId: $teamId, name: $name, description: $description) {
-      id
-      name
-      description
+      ...TeamSmall
 		}
 	}
+	${TeamSmallFragment}
 `;
 
 export const withUpdateTeamById = graphql(UpdateTeamByIdMutation, {
