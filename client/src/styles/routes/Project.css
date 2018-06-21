@@ -5,24 +5,20 @@
 	height: 100%;
 }
 
-.project__grid {
-	height: 100%;
-}
-
-.project__card-grid {
+.project__column-grid {
   display: flex;
   min-width: 100%;
   height: 100%;
   overflow-x: auto;
 }
 
-.project__card-grid::-webkit-scrollbar {
+.project__column-grid::-webkit-scrollbar {
   display: none;
 }
 
 .project__card {
   height: 100%;
-  min-width: 23.5%;
+  min-width: 23.9%;
   margin: 0 10px;
 }
 
