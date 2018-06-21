@@ -4,19 +4,24 @@ import { compose } from 'recompose';
 import { DragSource } from 'react-dnd';
 import { Card } from "../../../shared/components/Card";
 import { types } from "../../../shared/constants/dragAndDrop";
-
+import '../../../styles/routes/Task.css';
 
 const TaskComponent = (props) => {
-  const { task, isDragging, connectDragSource } = props;
+  const { task, taskPrefixCls, isDragging, connectDragSource } = props;
+  const taskClass = isDragging ? `${taskPrefixCls} ${taskPrefixCls}--dragging` : taskPrefixCls;
 
   return connectDragSource(
-    <div className="task">
+    <div className={taskClass}>
       <Card>
-        <h5 style={{margin: '0 0 5px'}}>{task.task}</h5>
-        <span style={{fontSize: '11px'}}>Added by <strong>{task.creator.username}</strong></span>
+        <h5 className="task__title">{task.task}</h5>
+        <span className="task__added-by">Added by <strong>{task.creator.username}</strong></span>
       </Card>
     </div>
   );
+};
+
+TaskComponent.defaultProps = {
+  taskPrefixCls: 'task'
 };
 
 TaskComponent.propTypes = {
