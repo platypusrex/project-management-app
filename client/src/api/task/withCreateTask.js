@@ -16,7 +16,6 @@ const CreateTaskMutation = gql`
 export const withCreateTask = graphql(CreateTaskMutation, {
   props: ({ownProps, mutate}) => ({
     createTask: async (variables) => {
-      console.log('own props', ownProps);
       const options = {
         variables,
         mutation: CreateTaskMutation,

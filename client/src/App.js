@@ -6,8 +6,10 @@ import { Login } from "./routes/Login/Login";
 import { Register } from "./routes/Register/Register";
 import { Home } from "./routes/Home/Home";
 import { Project } from "./routes/Project/Project";
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
-export const App = () => {
+const AppComponent = () => {
 	const appRoutes = () => (
 		<Layout>
 			<Switch>
@@ -31,4 +33,6 @@ export const App = () => {
 			</Switch>
 	);
 };
+
+export const App = DragDropContext(HTML5Backend)(AppComponent);
 
