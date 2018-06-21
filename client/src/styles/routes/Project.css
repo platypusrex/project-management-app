@@ -15,27 +15,3 @@
 .project__column-grid::-webkit-scrollbar {
   display: none;
 }
-
-.project__card {
-  height: 100%;
-  min-width: 23.9%;
-  margin: 0 10px;
-}
-
-@media only screen and (max-width: 1280px) {
-  .project__card {
-    min-width: 31.25% !important;
-  }
-}
-
-@media only screen and (max-width: 1024px) {
-  .project__card {
-    min-width: 47% !important;
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  .project__card {
-    min-width: 95.75% !important;
-  }
-}
