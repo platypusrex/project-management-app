@@ -1,16 +1,15 @@
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { TasksByColumnIdQuery } from "./withTasksByColumnId";
+import { TaskFullFragment } from "../fragments/task/taskFull";
 
 const UpdateTaskByIdMutation = gql`
   mutation ($taskId: Int!, $columnId: Int, $task: String) {
     updateTaskById (taskId: $taskId, columnId: $columnId, task: $task) {
-      id
-      createdAt
-      updatedAt
-      task
+      ...TaskFull
     }
   }
+  ${TaskFullFragment}
 `;
 
 export const withUpdateTaskById = graphql(UpdateTaskByIdMutation, {
