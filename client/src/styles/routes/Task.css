@@ -1,5 +1,6 @@
 .task {
   transition: all .15s ease-in-out;
+  cursor: move;
 }
 
 .task--dragging {
