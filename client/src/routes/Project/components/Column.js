@@ -76,13 +76,11 @@ const columnTarget = {
   }
 };
 
-const collect = (connect, monitor) => {
-  return {
-    connectDropTarget: connect.dropTarget(),
-    hovered: monitor.isOver(),
-    item: monitor.getItem()
-  }
-};
+const collect = (connect, monitor) => ({
+  connectDropTarget: connect.dropTarget(),
+  hovered: monitor.isOver(),
+  item: monitor.getItem()
+});
 
 export const Column = compose(
   withDeleteColumnById,

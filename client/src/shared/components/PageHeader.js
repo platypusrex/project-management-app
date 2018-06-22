@@ -6,10 +6,11 @@ import { Icon } from "./Icon";
 import '../../styles/components/PageHeader.css';
 
 export const PageHeaderComponent = (props) => {
-  const { title, subTitle, children } = props;
+  const { title, subTitle, children, hasBackBtn } = props;
   return (
     <div className="page-header">
       <div className="page-header__left">
+        {hasBackBtn &&
         <div className="page-header__back-btn-wrapper">
           <Icon
             icon="md-arrow-back"
@@ -17,7 +18,7 @@ export const PageHeaderComponent = (props) => {
             style={{cursor: 'pointer'}}
             onClick={() => props.history.goBack()}
           />
-        </div>
+        </div>}
 
         <div className="page-header__title-wrapper">
           <h3 className="page-header__title">{title}</h3>
@@ -36,7 +37,8 @@ export const PageHeaderComponent = (props) => {
 PageHeaderComponent.propTypes = {
   title: PropTypes.node.isRequired,
   subTitle: PropTypes.node,
-  children: PropTypes.node
+  children: PropTypes.node,
+  hasBackBtn: PropTypes.bool
 };
 
 export const PageHeader = compose(

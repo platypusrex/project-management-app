@@ -16,6 +16,7 @@ const ProjectComponent = (props) => {
       <PageHeader
         title={project.title.toUpperCase()}
         subTitle={`Manage the ${project.title} project here`}
+        hasBackBtn={true}
       >
         <Button>Add Task</Button>
       </PageHeader>
