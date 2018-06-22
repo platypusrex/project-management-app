@@ -2,15 +2,21 @@
   margin-top: -20px;
   background: #fff;
   border: 1px solid #e9e9e9;
-  margin-bottom: 20px;
   height: 90px;
   display: flex;
   align-items: center;
   padding: 0 20px;
 }
 
-.page-header__title-wrapper {
+.page-header__left {
+  display: flex;
+  align-items: center;
   margin-right: auto;
+}
+
+.page-header__back-btn-wrapper {
+  position: relative;
+  right: 8px;
 }
 
 .page-header__title {
