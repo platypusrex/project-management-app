@@ -16,7 +16,7 @@ const initialState = {
 };
 
 const ProjectCardComponent = (props) => {
-  const { projects, teams, userId, state } = props;
+  const { projects, userId, state } = props;
 
   const extra = (
     <a style={{fontSize: '12px'}} onClick={props.handleShowModal}>
@@ -48,7 +48,6 @@ const ProjectCardComponent = (props) => {
         dismiss={props.handleHideModal}
         userId={userId}
         project={state.selectedProject}
-        teams={teams}
       />}
     </Card>
   );

@@ -1,19 +1,14 @@
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import { TaskFullFragment } from "../fragments/task/taskFull";
 
 export const TasksByColumnIdQuery = gql`
   query ($columnId: Int!) {
     getTasksByColumnId (columnId: $columnId) {
-      id
-      createdAt
-      updatedAt
-      task
-      columnId
-      creator {
-        username
-      }
+      ...TaskFull
     }
   }
+  ${TaskFullFragment}
 `;
 
 export const withTasksByColumnId = graphql(TasksByColumnIdQuery, {
