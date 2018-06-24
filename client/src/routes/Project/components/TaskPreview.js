@@ -4,21 +4,11 @@ import { DragLayer } from 'react-dnd';
 import { compose } from 'recompose';
 import { TaskCard } from "./TaskCard";
 import { types } from "../../../shared/constants/dragAndDrop";
-
-const layerStyles = {
-  position: 'fixed',
-  pointerEvents: 'none',
-  zIndex: 100,
-  left: 0,
-  top: 0,
-  width: 'auto',
-  height: '100%',
-  transform: 'rotate(2.5deg)',
-};
+import '../../../styles/routes/TaskPreview.css';
 
 const cardStyles = {
   background: '#e6f7ff',
-  border: '1px solid cornflowerblue'
+  border: '1px solid cornflowerblue',
 };
 
 function getItemStyles(props) {
@@ -33,7 +23,7 @@ function getItemStyles(props) {
   const transform = `translate(${x}px, ${y}px)`;
   return {
     transform: transform,
-    WebkitTransform: transform
+    WebkitTransform: transform,
   };
 }
 
@@ -47,14 +37,14 @@ const TaskPreviewComponent = (props) => {
   const renderItem = (type, task) => {
     switch (type) {
       case types.TASK:
-        return (
-          <TaskCard task={task} className="task" style={cardStyles} setWidth={true}/>
-        );
+        return <TaskCard task={task} style={cardStyles} setWidth={true}/>;
+      default:
+        return null;
     }
   };
 
   return (
-    <div style={layerStyles}>
+    <div className="task-preview">
       <div style={getItemStyles(props)}>
         {renderItem(itemType, item)}
       </div>

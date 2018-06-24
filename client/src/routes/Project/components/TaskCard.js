@@ -3,23 +3,29 @@ import PropTypes from 'prop-types';
 import { compose, lifecycle } from 'recompose';
 import { Card } from "../../../shared/components/Card";
 import { withState } from "../../../shared/containers/withState";
+import '../../../styles/routes/TaskCard.css';
 
 const initialState = {
   containerWidth: null
 };
 
 export const TaskCardComponent = (props) => {
-  const { task, className, style, setWidth, state } = props;
+  const { task, className, style, setWidth, taskPrefixCls, state } = props;
   const containerStyle = {...style, width: setWidth ? state.containerWidth : '100%'};
+  const containerClass = `${taskPrefixCls} ${className}`;
 
   return (
-    <div className={className}>
+    <div className={containerClass}>
       <Card style={containerStyle}>
         <h5 className="task__title">{task.task}</h5>
         <span className="task__added-by">Added by <strong>{task.creator.username}</strong></span>
       </Card>
     </div>
   );
+};
+
+TaskCardComponent.defaultProps = {
+  taskPrefixCls: 'task'
 };
 
 TaskCardComponent.propTypes = {

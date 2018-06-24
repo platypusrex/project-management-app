@@ -1,0 +1,10 @@
+.task-preview {
+  position: fixed;
+  pointer-events: none;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: auto;
+  height: 100%;
+  transform: rotate(2.5deg);
+}

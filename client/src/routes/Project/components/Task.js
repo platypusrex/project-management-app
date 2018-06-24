@@ -6,11 +6,10 @@ import { getEmptyImage } from 'react-dnd-html5-backend'
 import { TaskPreview } from "./TaskPreview";
 import { TaskCard } from "./TaskCard";
 import { types } from "../../../shared/constants/dragAndDrop";
-import '../../../styles/routes/Task.css';
 
 const TaskComponent = (props) => {
-  const { task, taskPrefixCls, isDragging, connectDragSource } = props;
-  const taskClass = isDragging ? `${taskPrefixCls} ${taskPrefixCls}--dragging` : taskPrefixCls;
+  const { task, isDragging, connectDragSource } = props;
+  const taskClass = isDragging ? `task--dragging` : '';
 
   return connectDragSource(
     <div>
@@ -19,10 +18,6 @@ const TaskComponent = (props) => {
       <TaskPreview/>
     </div>
   );
-};
-
-TaskComponent.defaultProps = {
-  taskPrefixCls: 'task'
 };
 
 TaskComponent.propTypes = {
