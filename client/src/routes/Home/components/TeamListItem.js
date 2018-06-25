@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from "react-router-dom";
 import { compose, withHandlers } from 'recompose';
 import { ListItem } from "../../../shared/components/ListItem";
 import { Dropdown } from "../../../shared/components/Dropdown";
@@ -25,7 +26,7 @@ const TeamListItemComponent = (props) => {
 
 	return (
 		<ListItem
-			title={team.name}
+			title={<a onClick={() => props.history.push(`/team/${team.id}`)}>{team.name}</a>}
 			description={team.description}
 			extra={dropdown}
 		/>
@@ -38,6 +39,7 @@ TeamListItemComponent.propTypes = {
 };
 
 export const TeamListItem = compose(
+  withRouter,
 	withDeleteTeam,
 	withHandlers({
 		handleDropdownClick: (props) => async (menuItem) => {
