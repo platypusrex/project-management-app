@@ -6,6 +6,7 @@ import { Login } from "./routes/Login/Login";
 import { Register } from "./routes/Register/Register";
 import { Home } from "./routes/Home/Home";
 import { Project } from "./routes/Project/Project";
+import { Team } from "./routes/Team/Team";
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
@@ -15,6 +16,7 @@ const AppComponent = () => {
 			<Switch>
 				<Route path="/home" component={Home}/>
 				<Route path="/project/:projectId" component={Project}/>
+        <Route path="/team/:teamId" component={Team}/>
 			</Switch>
 		</Layout>
 	);
