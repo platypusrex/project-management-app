@@ -1,7 +1,9 @@
 export default (sequelize, DataTypes) => {
 	const team = sequelize.define('Team', {
 		name: DataTypes.STRING,
-		description: DataTypes.TEXT('tiny')
+		description: DataTypes.TEXT('tiny'),
+    website: DataTypes.STRING,
+    companyName: DataTypes.STRING
 	});
 
 	team.associate = (models) => {

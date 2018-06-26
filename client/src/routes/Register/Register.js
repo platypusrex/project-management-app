@@ -59,7 +59,7 @@ const RegisterComponent = (props) => {
 						<FormGroup>
 							<AuthContext.Consumer>
 								{({setAuthStatus}) => (
-									<Button onClick={e => props.handleRegister(e, setAuthStatus)}>
+									<Button type="primary" onClick={e => props.handleRegister(e, setAuthStatus)}>
 										Register
 									</Button>
 								)}

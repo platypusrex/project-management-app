@@ -1,8 +1,6 @@
 .button {
-	color: #fff;
-	background: hsl(206, 73%, 47%);;
 	border-radius: 3px;
-	border: 1px solid hsl(206, 73%, 47%);;
+	border: 1px solid;
 	padding: 12px 15px;
 	font-size: 15px;
 	text-transform: uppercase;
@@ -10,7 +8,39 @@
 	cursor: pointer;
 }
 
-.button:hover {
-	background: hsl(206, 73%, 43%);
-	transition: all .15s ease-in-out;
+.button--default {
+  color: #2a2a2a;
+  background: transparent;
+  border-color: #ccc;
+}
+
+.button--default:hover {
+  color: hsl(206, 73%, 43%);
+  border-color: hsl(206, 73%, 43%);
+}
+
+.button--primary {
+  color: #fff;
+  background: hsl(206, 73%, 47%);
+  border-color: hsl(206, 73%, 47%);
+}
+
+.button--primary:hover {
+  background: hsl(206, 73%, 43%);
+}
+
+.button--danger {
+  color: #ff4d4f;
+  border-color: #ff4d4f;
+}
+
+.button--danger:hover {
+  background: #ff4d4f;
+  color: #fff;
+}
+
+.button--default:hover,
+.button--primary:hover,
+.button--danger:hover {
+  transition: all .15s ease-in-out;
 }

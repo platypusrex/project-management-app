@@ -12,8 +12,8 @@ export class Tabs extends React.Component {
     let key = '';
 
     if (!defaultActiveKey) {
-      React.Children.forEach(this.props.children, (child, index) => {
-        if (index === 0) {
+      React.Children.forEach(this.props.children, (child, i) => {
+        if (i === 0) {
           key = child.props.tabKey;
         }
       })

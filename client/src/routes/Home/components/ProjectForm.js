@@ -23,7 +23,7 @@ const ProjectFormComponent = (props) => {
 	const { title, description } = state;
 
 	const footer = (
-		<Button style={{marginLeft: 'auto'}} onClick={props.handleSubmit}>
+		<Button type="primary" style={{marginLeft: 'auto'}} onClick={props.handleSubmit}>
 			Submit
 		</Button>
 	);

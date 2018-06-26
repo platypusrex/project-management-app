@@ -5,6 +5,8 @@ export const teamTypes = `
 		updatedAt: String!
 		name: String!
 		description: String
+		website: String
+		companyName: String
 		creator: User!
 	}
 	
@@ -16,7 +18,7 @@ export const teamTypes = `
 	
 	type Mutation {
 		createTeam (name: String!, description: String, createdBy: Int!): Team!
-		updateTeamById (teamId: Int!, name: String, description: String): Team!
+		updateTeamById (teamId: Int!, name: String, description: String, website: String, companyName: String): Team!
 		deleteTeam (teamId: Int!): Boolean!
 	}
 `;

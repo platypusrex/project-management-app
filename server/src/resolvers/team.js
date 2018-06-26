@@ -8,7 +8,7 @@ export const teamResolvers = {
 	Query: {
 		getAllTeams: (parent, args, {models}) => models.Team.findAll(),
 		getTeamById: (parent, {teamId}, {models}) => models.Team.findOne({
-			where: {id: teamId}
+			where: {id: teamId},
 		}),
     getTeamsByUserId: (parent, {userId}, {models}) => models.Team.findAll({
       include: [

@@ -20,7 +20,7 @@ const ColumnFormComponent = (props) => {
 	const { name } = state;
 
 	const footer = (
-		<Button style={{marginLeft: 'auto'}} onClick={props.handleAddColumn}>
+		<Button type="primary" style={{marginLeft: 'auto'}} onClick={props.handleAddColumn}>
 			Submit
 		</Button>
 	);
