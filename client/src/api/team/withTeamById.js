@@ -2,7 +2,7 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { TeamFullFragment } from "../fragments/team/teamFull";
 
-const TeamByIdQuery = gql`
+export const TeamByIdQuery = gql`
   query ($teamId: Int!) {
     getTeamById (teamId: $teamId) {
       ...TeamFull
