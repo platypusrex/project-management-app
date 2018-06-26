@@ -1,0 +1,13 @@
+.section-header {
+  margin-bottom: 30px;
+}
+
+.section-header__title {
+  margin: 0;
+  font-size: 22px;
+}
+
+.section-header__sub-title {
+  font-size: 12px;
+  color: #7a7a7a;
+}
