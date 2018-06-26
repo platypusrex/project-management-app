@@ -18,7 +18,7 @@ const ProjectComponent = (props) => {
         subTitle={`Manage the ${project.title} project here`}
         hasBackBtn={true}
       >
-        <Button>Add Task</Button>
+        <Button type="primary">Add Task</Button>
       </PageHeader>
 
       <div className="project__column-grid">

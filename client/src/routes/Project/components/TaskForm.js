@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, withHandlers } from 'recompose';
-import {Button} from "../../../shared/components/Button";
+import { Button } from "../../../shared/components/Button";
 import { Modal } from "../../../shared/components/Modal";
 import { FormGroup } from "../../../shared/components/FormGroup";
 import { Input } from "../../../shared/components/Input";
@@ -19,7 +19,7 @@ const TaskFormComponent = (props) => {
   const { task } = state;
 
   const footer = (
-    <Button style={{marginLeft: 'auto'}} onClick={props.handleSubmit}>
+    <Button type="primary" style={{marginLeft: 'auto'}} onClick={props.handleSubmit}>
       Submit
     </Button>
   );

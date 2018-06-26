@@ -52,7 +52,7 @@ const LoginComponent = (props) => {
 						<FormGroup>
 							<AuthContext.Consumer>
 								{({setAuthStatus}) => (
-									<Button onClick={e => props.handleLogin(e, setAuthStatus)}>
+									<Button type="primary" onClick={e => props.handleLogin(e, setAuthStatus)}>
 										Login
 									</Button>
 								)}

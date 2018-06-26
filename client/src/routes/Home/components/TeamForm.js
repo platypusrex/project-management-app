@@ -21,7 +21,7 @@ const TeamFormComponent = (props) => {
 	const { name, description } = state;
 
 	const footer = (
-		<Button style={{marginLeft: 'auto'}} onClick={props.handleCreateTeam}>
+		<Button type="primary" style={{marginLeft: 'auto'}} onClick={props.handleCreateTeam}>
 			Submit
 		</Button>
 	);
