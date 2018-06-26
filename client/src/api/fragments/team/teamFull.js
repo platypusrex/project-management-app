@@ -7,6 +7,8 @@ export const TeamFullFragment = gql`
     updatedAt
     name
     description
+    website
+    companyName
     creator {
       id 
       username
