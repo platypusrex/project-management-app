@@ -60,8 +60,8 @@ const TeamProfileComponent = (props) => {
           </FormGroup>
 
           <div style={{display: 'flex'}}>
-            <Button style={{marginRight: '20px'}}>Cancel</Button>
-            <Button type="danger">Submit</Button>
+            <Button style={{marginRight: '20px'}} onClick={props.handleCancel}>Cancel</Button>
+            <Button type="primary">Submit</Button>
           </div>
         </div>
       </div>
@@ -73,23 +73,27 @@ TeamProfileComponent.propTypes = {
   team: PropTypes.object
 };
 
+function initFormState (props) {
+  const { team, setState } = props;
+
+  if (!team) {
+    return;
+  }
+
+  const name = team.name || '';
+  const description = team.description || '';
+  const website = team.website || '';
+  const companyName = team.companyName || '';
+
+  setState(ss => ({...ss, name, description, website, companyName}));
+}
+
 export const TeamProfile = compose(
   withState(initialState),
   withUpdateTeamById,
   lifecycle({
     componentDidMount: function () {
-      const { team, setState } = this.props;
-
-      if (!team) {
-        return;
-      }
-
-      const name = team.name || '';
-      const description = team.description || '';
-      const website = team.website || '';
-      const companyName = team.companyName || '';
-
-      setState(ss => ({...ss, name, description, website, companyName}));
+      initFormState(this.props);
     }
   }),
   withHandlers({
@@ -130,6 +134,9 @@ export const TeamProfile = compose(
         setState(ss => ({...ss, isSubmitting: false}));
         console.log(`handleUpdateTeam: ${err}`);
       }
+    },
+    handleCancel: (props) => () => {
+      initFormState(props);
     }
   })
 )(TeamProfileComponent);
