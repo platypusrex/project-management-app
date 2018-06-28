@@ -5,6 +5,7 @@ import { PageHeader } from "../../shared/components/PageHeader";
 import { Tabs } from "../../shared/components/Tabs";
 import { Tab } from "../../shared/components/Tab";
 import { TeamProfile } from "./components/TeamProfile";
+import { TeamProjects } from "./components/TeamProjects";
 import { withTeamById } from "../../api/team/withTeamById";
 import '../../styles/routes/Team.css';
 
@@ -19,8 +20,8 @@ const TeamComponent = (props) => {
         <Tab title="Profile" tabKey="profile">
           <TeamProfile team={team}/>
         </Tab>
-        <Tab title="Boards" tabKey="boards">
-          I'm in boards
+        <Tab title="Projects" tabKey="projects">
+          <TeamProjects teamId={team.id}/>
         </Tab>
         <Tab title="Members" tabKey="members">
           I'm in members
