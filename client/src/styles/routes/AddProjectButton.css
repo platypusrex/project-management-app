@@ -1,0 +1,25 @@
+.add-project-btn {
+  color: #2a2a2a;
+  border: 1px dashed #e9e9e9;
+  height: 100%;
+  transition: all .15s ease-in-out;
+  cursor: pointer;
+}
+
+.add-project-btn:hover {
+  color: #2185d0;
+  border-color: #2185d0;
+  transition: all .15s ease-in-out;
+}
+
+.add-project-btn__inner-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-project-btn .card__body {
+  height: 100%;
+}

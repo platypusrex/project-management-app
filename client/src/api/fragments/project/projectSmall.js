@@ -7,5 +7,8 @@ export const ProjectSmallFragment = gql`
     updatedAt
     title
     description
+    team {
+      id
+    }
   }
 `;

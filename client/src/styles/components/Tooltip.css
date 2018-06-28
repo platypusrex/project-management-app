@@ -13,10 +13,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  visibility: hidden;
 }
 
 .tooltip__wrapper--visible {
   opacity: 1;
+  visibility: visible;
   transition: all .15s ease-in-out;
 }
 
