@@ -4,9 +4,10 @@
 }
 
 .task--dragging {
-  opacity: 0.4;
+  opacity: 0.5;
   background: #ccc;
   transition: all .15s ease-in-out;
+  border: none;
 }
 
 .task__title {
