@@ -36,6 +36,9 @@ export const projectResolvers = {
           where: { id: userId }
         }
       ]
+    }),
+    getProjectsByTeamId: (parent, {teamId}, {models}) => models.Project.findAll({
+      where: {teamId}
     })
 	},
 
