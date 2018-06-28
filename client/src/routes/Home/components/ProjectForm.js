@@ -63,7 +63,6 @@ ProjectFormComponent.propsTypes = {
 	dismiss: PropTypes.func.isRequired,
 	userId: PropTypes.number.isRequired,
 	project: PropTypes.object,
-  teams: PropTypes.arrayOf(PropTypes.object)
 };
 
 export const ProjectForm = compose(
@@ -77,6 +76,8 @@ export const ProjectForm = compose(
 			if (!project) {
 				return;
 			}
+
+			console.log('project', project);
 
 			const title = project.title || '';
 			const description = project.description || '';
