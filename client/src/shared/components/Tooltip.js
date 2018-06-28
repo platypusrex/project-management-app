@@ -21,8 +21,8 @@ const TooltipComponent = (props) => {
   return (
     <div
       className="tooltip"
-      onMouseEnter={props.handleMouseEnter}
-      onMouseLeave={props.handleMouseLeave}
+      onMouseOver={e => props.handleMouseOver(e)}
+      onMouseOut={e => props.handleMouseOut(e)}
     >
       {children}
 
@@ -75,13 +75,17 @@ export const Tooltip = compose(
     }
   }),
   withHandlers({
-    handleMouseEnter: (props) => () => {
+    handleMouseOver: (props) => (e) => {
       const { setState } = props;
+
+      e.stopPropagation();
 
       setState(ss => ({...ss, isTooltipVisible: true}))
     },
-    handleMouseLeave: (props) => () => {
+    handleMouseOut: (props) => (e) => {
       const { setState } = props;
+
+      e.stopPropagation();
 
       setState(ss => ({...ss, isTooltipVisible: false}))
     }
