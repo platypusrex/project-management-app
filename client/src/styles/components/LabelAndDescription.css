@@ -1,0 +1,10 @@
+.label-and-desc {
+  display: flex;
+  align-items: center;
+  line-height: 20px;
+  font-size: 12px;
+}
+
+.label-and-desc__label {
+  min-width: 100px;
+}
