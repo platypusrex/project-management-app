@@ -32,7 +32,18 @@ export const userResolvers = {
 					model: models.Project
 				}
 			]
-		})
+		}),
+    getUsersByTeamId: (parent, {teamId}, {models}) => models.User.findAll({
+      include: [
+        {
+          as: 'teams',
+          model: models.Team,
+          where: { id: teamId }
+        }
+      ]
+    }, {
+      raw: true
+    })
 	},
 
 	Mutation: {
