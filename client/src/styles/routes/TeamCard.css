@@ -1,0 +1,31 @@
+.team-card {
+  height: 100%;
+}
+
+.team-card .card__body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.team-card__title-wrapper {
+  margin-bottom: auto;
+}
+
+.team-card__title {
+  margin: 0 0 2px;
+  font-size: 18px;
+  display: block;
+}
+
+.team-card__description {
+  font-size: 12px;
+  color: #5a5a5a;
+}
+
+.team-card__details-wrapper {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
