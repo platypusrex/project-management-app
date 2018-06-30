@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, withHandlers } from 'recompose';
-import { DropTarget } from 'react-dnd';
+import { DropTarget, DragSource } from 'react-dnd';
 import { Card } from "../../../shared/components/Card";
 import { Dropdown } from "../../../shared/components/Dropdown";
 import { DropdownMenu } from "../../../shared/components/DropdownMenu";
@@ -11,6 +11,7 @@ import { AddTaskButton } from "./AddTaskButton";
 import { Icon } from "../../../shared/components/Icon";
 import { withState } from "../../../shared/containers/withState";
 import { withDeleteColumnById } from "../../../api/column/withDeleteColumnById";
+import { withUpdateColumnById } from "../../../api/column/withUpdateColumnById";
 import { types } from "../../../shared/constants/dragAndDrop";
 import '../../../styles/routes/Column.css';
 
@@ -21,7 +22,7 @@ const initialState = {
 const menuItems = ['Edit column', 'Delete column'];
 
 const ColumnComponent = (props) => {
-  const { column, projectId, connectDropTarget, state, setState } = props;
+  const { column, projectId, connectDropTarget, connectDragSource, state, setState } = props;
 
   const overlay = (
     <DropdownMenu
@@ -40,7 +41,7 @@ const ColumnComponent = (props) => {
     </div>
   );
 
-  return connectDropTarget(
+  return connectDragSource(connectDropTarget(
     <div className="project-column">
       <Card className="project-column__card" title={column.name} extra={dropdown}>
         <ColumnTasks columnId={column.id}/>
@@ -53,7 +54,7 @@ const ColumnComponent = (props) => {
         column={column}
       />}
     </div>
-  );
+  ));
 };
 
 ColumnComponent.propTypes = {
@@ -61,22 +62,62 @@ ColumnComponent.propTypes = {
   column: PropTypes.object.isRequired,
 };
 
-const columnTarget = {
-  drop: (props, monitor, component) => {
-    const { column } = props;
-    // const task = monitor.getItem();
+const columnSource = {
+  beginDrag: (props) => props.column,
+  endDrag: async (props, monitor, component) => {
+    if (!monitor.didDrop()) {
+      return;
+    }
 
-    // if (column.id === task.columnId) {
-    //   return;
-    // }
+    try {
+      const { column } = props;
+      const target = monitor.getDropResult();
+      const draggedColumn = {
+        columnId: column.id,
+        order: parseInt(target.order, 10)
+      };
+      const droppedColumn = {
+        columnId: target.columnId,
+        order: parseInt(column.order, 10)
+      };
+      const columns = [draggedColumn, droppedColumn];
 
-    return {
-      columnId: column.id
-    };
+      await Promise.all(
+        columns.map(column => props.updateColumnById(column))
+      );
+
+    } catch (err) {
+      console.log(`UpdateColumnDragAndDrop: ${err}`);
+    }
   }
 };
 
-const collect = (connect, monitor) => ({
+const columnSourceCollect = (connect, monitor) => ({
+  connectDragSource: connect.dragSource(),
+  connectDragPreview: connect.dragPreview(),
+  isDragging: monitor.isDragging()
+});
+
+const columnTarget = {
+  drop: (props, monitor, component) => {
+    const { column } = props;
+    const itemType = monitor.getItemType();
+
+    switch (itemType) {
+      case types.COLUMN:
+        return {
+          columnId: column.id,
+          order: column.order
+        };
+      case types.TASK:
+        return {
+          columnId: column.id
+        };
+    }
+  }
+};
+
+const columnTargetCollect = (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
   hovered: monitor.isOver(),
   item: monitor.getItem()
@@ -84,7 +125,9 @@ const collect = (connect, monitor) => ({
 
 export const Column = compose(
   withDeleteColumnById,
-  DropTarget(types.TASK, columnTarget, collect),
+  withUpdateColumnById,
+  DragSource(types.COLUMN, columnSource, columnSourceCollect),
+  DropTarget([types.TASK, types.COLUMN], columnTarget, columnTargetCollect),
   withState(initialState),
   withHandlers({
     handleMenuItemClick: (props) => (menuItem) => {
