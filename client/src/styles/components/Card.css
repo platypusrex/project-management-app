@@ -7,6 +7,7 @@
 
 .card:hover {
 	box-shadow: 0 2px 8px rgba(0,0,0,.09);
+  border-color: transparent;
 	transition: all .15s ease-in-out;
 }
 

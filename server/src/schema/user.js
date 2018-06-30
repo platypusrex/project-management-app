@@ -14,6 +14,7 @@ export const userTypes = `
 	type Query {
 		getAllUsers: [User]
 		getUserById (userId: Int!): User!
+		getUsersByTeamId (teamId: Int!): [User]
 	}
 	
 	type Mutation {

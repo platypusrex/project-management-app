@@ -1,13 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, withProps, branch, renderComponent } from 'recompose';
-import { TeamProjectCard } from "./TeamProjectCard";
 import { AddProjectButton } from "./AddProjectButton";
 import { SectionHeader } from "../../../shared/components/SectionHeader";
+import { TeamCard } from "./TeamCard";
+import { LabelAndDescription } from "../../../shared/components/LabelAndDescription";
 import { withProjectsByTeamId } from "../../../api/project/withProjectsByTeamId";
+import { formatDate } from "../../../shared/utils/formatData";
 
 const TeamProjectComponent = (props) => {
   const { projects } = props;
+
   return (
     <div className="team-projects">
       <SectionHeader
@@ -16,14 +19,27 @@ const TeamProjectComponent = (props) => {
       />
 
       <div className="grid">
+
         <div className="col-3_md-6_sm-12">
           <AddProjectButton/>
         </div>
+
         {projects.map(project => (
           <div key={project.id} className="col-3_md-6_sm-12">
-            <TeamProjectCard project={project}/>
+            <TeamCard title={project.title} subTitle={project.description}>
+              <LabelAndDescription
+                label="Created by:"
+                description={project.creator.username}
+              />
+
+              <LabelAndDescription
+                label="Last updated:"
+                description={formatDate(project.updatedAt)}
+              />
+            </TeamCard>
           </div>
         ))}
+
       </div>
     </div>
   );
@@ -36,7 +52,6 @@ TeamProjectComponent.propTypes = {
 export const TeamProjects = compose(
   withProjectsByTeamId,
   withProps(props => {
-    console.log(props);
     const { projectsData } = props;
     const projects =
       projectsData &&
