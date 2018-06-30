@@ -13,3 +13,7 @@
 .input::placeholder {
 	color: #9a9a9a;
 }
+
+.input:disabled {
+  background: #f8f8f8;
+}
