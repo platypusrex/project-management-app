@@ -18,8 +18,6 @@ export const columnResolvers = {
 	Mutation: {
 		createColumn: (parent, args, {models}) => models.Column.create(args),
     updateColumnById: async (parent, args, {models}) => {
-		  console.log('args', args);
-
       const [rowsUpdated, [column]] = await models.Column.update(
         args,
         {
@@ -27,8 +25,6 @@ export const columnResolvers = {
           where: {id: args.columnId}
         }
       );
-
-      console.log('column', column);
 
       return column;
     },
