@@ -30,7 +30,7 @@ TaskCardComponent.defaultProps = {
 
 TaskCardComponent.propTypes = {
   task: PropTypes.object.isRequired,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   style: PropTypes.object,
   setWidth: PropTypes.bool
 };
