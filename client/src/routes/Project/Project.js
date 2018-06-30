@@ -25,7 +25,7 @@ const ProjectComponent = (props) => {
         {columns.map(column => <Column key={column.id} column={column} projectId={projectId}/>)}
 
         <div className="project-column">
-          <AddColumnButton projectId={projectId}/>
+          <AddColumnButton projectId={projectId} columnsLength={columns.length}/>
         </div>
       </div>
 		</div>
@@ -51,10 +51,13 @@ export const Project = compose(
 		const project =
       data &&
       data.getProjectById;
-		const columns =
+		let columns =
 			data &&
 			data.getProjectById &&
-			data.getProjectById.columns;
+			data.getProjectById.columns &&
+      [...data.getProjectById.columns] || [];
+
+		columns.sort((a, b) => a.order - b.order);
 
 		return {project, columns};
 	}),
