@@ -1,3 +1,4 @@
 export const types = {
-  TASK: 'TASK'
+  TASK: 'TASK',
+  COLUMN: 'COLUMN'
 };
