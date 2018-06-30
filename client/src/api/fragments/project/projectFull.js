@@ -19,6 +19,7 @@ export const ProjectFullFragment = gql`
     columns {
       id
       name
+      order
     }
   }
 `;

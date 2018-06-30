@@ -1,6 +1,7 @@
 export default (sequelize, DataTypes) => {
 	const column = sequelize.define('Column', {
-		name: DataTypes.STRING
+		name: DataTypes.STRING,
+    order: DataTypes.INTEGER
 	});
 
 	column.associate = (models) => {

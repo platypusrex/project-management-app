@@ -10,7 +10,7 @@ const initialState = {
 };
 
 const AddColumnButtonComponent = (props) => {
-	const { setState, state, projectId } = props;
+	const { setState, state, projectId, columnsLength } = props;
 
 	return (
 		<React.Fragment>
@@ -21,6 +21,7 @@ const AddColumnButtonComponent = (props) => {
 			{state.isAddColumnModalVisible &&
 			<ColumnForm
 				projectId={projectId}
+        columnsLength={columnsLength}
 				dismiss={() => setState(ss => ({...ss, isAddColumnModalVisible: false}))}
 			/>}
 		</React.Fragment>
@@ -28,7 +29,8 @@ const AddColumnButtonComponent = (props) => {
 };
 
 AddColumnButtonComponent.propTypes = {
-	projectId: PropTypes.number.isRequired
+	projectId: PropTypes.number.isRequired,
+  columnsLength: PropTypes.number.isRequired
 };
 
 export const AddColumnButton = compose(

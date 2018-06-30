@@ -48,7 +48,7 @@ export const projectResolvers = {
 				const project = await models.sequelize.transaction(async () => {
 					const newProject = await models.Project.create(args);
 					await models.ProjectUser.create({userId: args.createdBy, projectId: newProject.id});
-					await models.Column.create({projectId: newProject.id, name: 'To Do'});
+					await models.Column.create({projectId: newProject.id, name: 'To Do', order: 0});
 
 					return newProject;
 				});

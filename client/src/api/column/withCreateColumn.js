@@ -4,8 +4,8 @@ import { ProjectByIdQuery } from "../project/withProjectById";
 import { ColumnSmallFragment } from "../fragments/column/columnSmall";
 
 const CreateColumnMutation = gql`
-	mutation ($projectId: Int!, $name: String!) {
-		createColumn (projectId: $projectId, name: $name) {
+	mutation ($projectId: Int!, $name: String!, $order: Int!) {
+		createColumn (projectId: $projectId, name: $name, order: $order) {
 			...ColumnSmall
 		}
 	}
