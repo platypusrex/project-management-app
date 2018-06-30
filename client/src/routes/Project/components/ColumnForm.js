@@ -46,7 +46,8 @@ const ColumnFormComponent = (props) => {
 ColumnFormComponent.propsTypes = {
 	dismiss: PropTypes.func.isRequired,
 	projectId: PropTypes.number.isRequired,
-  column: PropTypes.object
+  column: PropTypes.object,
+  columnsLength: PropTypes.number
 };
 
 export const ColumnForm = compose(
@@ -69,7 +70,7 @@ export const ColumnForm = compose(
 	withHandlers({
 		handleAddColumn: (props) => async (e) => {
 			e.preventDefault();
-			const { column, state, setState, projectId } = props;
+			const { column, columnsLength, state, setState, projectId } = props;
 			const { name, isSubmitting, errors } = state;
 
 			if (isSubmitting) {
@@ -79,7 +80,7 @@ export const ColumnForm = compose(
 			if (!column) {
         try {
           setState(ss => ({...ss, isSubmitting: true}));
-          await props.createColumn({name, projectId});
+          await props.createColumn({name, projectId, order: columnsLength});
           setState(ss => ({...ss, isSubmitting: false}));
           props.dismiss();
         } catch (err) {
