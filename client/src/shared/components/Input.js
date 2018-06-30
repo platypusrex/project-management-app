@@ -19,7 +19,8 @@ const InputComponent = (props) => {
 		required,
 		onChange,
 		onFocus,
-		onBlur
+		onBlur,
+    style
 	} = props;
 
 	return (
@@ -33,8 +34,13 @@ const InputComponent = (props) => {
 			onChange={e => onChange(e.target.value)}
 			onFocus={onFocus}
 			onBlur={onBlur}
+      style={style}
 		/>
 	);
+};
+
+InputComponent.defaultProps = {
+  type: 'text'
 };
 
 InputComponent.propTypes = {
@@ -45,7 +51,8 @@ InputComponent.propTypes = {
 	required: PropTypes.bool,
 	onChange: PropTypes.func,
 	onFocus: PropTypes.func,
-	onBlur: PropTypes.func
+	onBlur: PropTypes.func,
+  style: PropTypes.object
 };
 
 export const Input = compose(
