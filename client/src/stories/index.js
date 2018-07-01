@@ -56,6 +56,19 @@ storiesOf('Atoms')
               </Button>
             ),
             options: {
+              allowPropTablesToggling: false
+            }
+          },
+
+          {
+            title: 'Disabled Button',
+            subtitle: 'style and props for the disabled button',
+            sectionFn: () => (
+              <Button disabled={true} onClick={action('Button Clicked')}>
+                Primary
+              </Button>
+            ),
+            options: {
               showPropTables: true
             }
           }
@@ -157,5 +170,11 @@ storiesOf('Atoms')
         ]
       }
     ]
+  });
+
+storiesOf('Molecules')
+  .addWithChapters('Team Card', {
+    useTheme: false,
+    chapters: []
   });
 
