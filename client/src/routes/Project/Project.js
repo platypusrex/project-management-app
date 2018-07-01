@@ -9,7 +9,7 @@ import { withProjectById } from "../../api/project/withProjectById";
 import '../../styles/routes/Project.css';
 
 const ProjectComponent = (props) => {
-	const { project, columns, projectId } = props;
+	const { project, columns, projectId, columnOrderMax } = props;
 
 	return (
 		<div className="project">
@@ -25,7 +25,7 @@ const ProjectComponent = (props) => {
         {columns.map(column => <Column key={column.id} column={column} projectId={projectId}/>)}
 
         <div className="project-column">
-          <AddColumnButton projectId={projectId} columnsLength={columns.length}/>
+          <AddColumnButton projectId={projectId} columnsLength={columnOrderMax}/>
         </div>
       </div>
 		</div>
@@ -56,10 +56,13 @@ export const Project = compose(
 			data.getProjectById &&
 			data.getProjectById.columns &&
       [...data.getProjectById.columns] || [];
+    const columnOrderMax =
+      columns &&
+      Math.max.apply(null, columns.map(column => column.order));
 
 		columns.sort((a, b) => a.order - b.order);
 
-		return {project, columns};
+		return {project, columns, columnOrderMax};
 	}),
 	branch((props) => props.data.loading,
 		renderComponent(() => <span>Loading...</span>)
