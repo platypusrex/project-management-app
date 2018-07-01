@@ -15,8 +15,6 @@ const UpdateColumnByIdMutation = gql`
 export const withUpdateColumnById = graphql(UpdateColumnByIdMutation, {
   props: ({ownProps, mutate}) => ({
     updateColumnById: async (variables) => {
-      console.log(variables);
-
       const options = {
         variables,
         mutation: UpdateColumnByIdMutation,
