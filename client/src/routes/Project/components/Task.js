@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, lifecycle } from 'recompose';
 import { DragSource } from 'react-dnd';
-import { getEmptyImage } from 'react-dnd-html5-backend'
+import { getEmptyImage } from 'react-dnd-html5-backend';
 import { TaskPreview } from "./TaskPreview";
 import { TaskCard } from "./TaskCard";
 import { types } from "../../../shared/constants/dragAndDrop";
