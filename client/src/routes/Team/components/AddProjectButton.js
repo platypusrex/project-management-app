@@ -4,15 +4,15 @@ import { compose } from 'recompose';
 import { Card } from "../../../shared/components/Card";
 import { ProjectForm } from "../../Home/components/ProjectForm";
 import { withState } from "../../../shared/containers/withState";
+import { withUserId } from "../../../shared/utils/localStorageUtil";
 import '../../../styles/routes/AddProjectButton.css';
-import {withUserId} from "../../../shared/utils/localStorageUtil";
 
 const initialState = {
   isProjectFormVisible: false,
 };
 
 const AddProjectButtonComponent = (props) => {
-  const { state, setState, userId } = props;
+  const { state, setState, userId, teamId } = props;
 
   return (
     <React.Fragment>
@@ -29,12 +29,17 @@ const AddProjectButtonComponent = (props) => {
       <ProjectForm
         dismiss={() => setState(ss => ({...ss, isProjectFormVisible: false}))}
         userId={userId}
+        teamId={teamId}
       />}
     </React.Fragment>
   );
 };
 
+AddProjectButtonComponent.propTypes = {
+  teamId: PropTypes.number.isRequired
+};
+
 export const AddProjectButton = compose(
   withUserId,
-  withState(initialState)
+  withState(initialState),
 )(AddProjectButtonComponent);
