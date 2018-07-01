@@ -28,7 +28,7 @@ TeamCardComponent.propTypes = {
   title: PropTypes.string.isRequired,
   subTitle: PropTypes.string.isRequired,
   linkUrl: PropTypes.string.isRequired,
-  children: PropTypes.string
+  children: PropTypes.node
 };
 
 export const TeamCard = compose(
