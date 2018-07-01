@@ -80,7 +80,7 @@ export const ColumnForm = compose(
 			if (!column) {
         try {
           setState(ss => ({...ss, isSubmitting: true}));
-          await props.createColumn({name, projectId, order: columnsLength});
+          await props.createColumn({name, projectId, order: columnsLength + 1});
           setState(ss => ({...ss, isSubmitting: false}));
           props.dismiss();
         } catch (err) {
