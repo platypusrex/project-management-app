@@ -7,7 +7,7 @@ import { Input } from "../../../shared/components/Input";
 import { Button } from "../../../shared/components/Button";
 import { TeamSelect } from "../../../shared/components/TeamSelect";
 import { withState } from "../../../shared/containers/withState";
-import { withCreateProject } from "../../../api/project/withCreateProject";
+import {createProject, withCreateProject} from "../../../api/project/withCreateProject";
 import { withUpdateProjectById } from "../../../api/project/withUpdateProjectById";
 
 const initialState = {
@@ -62,6 +62,7 @@ const ProjectFormComponent = (props) => {
 ProjectFormComponent.propsTypes = {
 	dismiss: PropTypes.func.isRequired,
 	userId: PropTypes.number.isRequired,
+  teamId: PropTypes.number,
 	project: PropTypes.object,
 };
 
@@ -71,19 +72,21 @@ export const ProjectForm = compose(
 	withUpdateProjectById,
 	lifecycle({
 		componentDidMount: function () {
-			const { project, setState } = this.props;
+			const { project, setState, teamId } = this.props;
+
+			if (teamId) {
+			  setState(ss => ({...ss, teamId}))
+      }
 
 			if (!project) {
 				return;
 			}
 
-			console.log('project', project);
-
 			const title = project.title || '';
 			const description = project.description || '';
-			const teamId = project.team ? project.team.id : null;
+			const projectTeamId = project.team ? project.team.id : null;
 
-			setState(ss => ({...ss, title, description, teamId}));
+			setState(ss => ({...ss, title, description, teamId: projectTeamId}));
 		}
 	}),
 	withHandlers({
@@ -99,7 +102,7 @@ export const ProjectForm = compose(
 			if (!project) {
         try {
           setState(ss => ({...ss, isSubmitting: true}));
-          await props.createProject({title, description, teamId, createdBy: userId});
+          await createProject({title, description, teamId, createdBy: userId}, !!(props.teamId));
           setState(ss => ({...ss, isSubmitting: false}));
           props.dismiss();
         } catch (err) {
