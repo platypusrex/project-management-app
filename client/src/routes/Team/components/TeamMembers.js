@@ -19,7 +19,7 @@ const TeamMembersComponent = (props) => {
       <div className="grid">
         {members.map(member => (
           <div className="col-3_md-6_sm-12">
-            <TeamCard title={member.username} subTitle={member.email}>
+            <TeamCard key={member.id} title={member.username} subTitle={member.email}>
               <LabelAndDescription
                 label="Created on:"
                 description={formatDate(member.createdAt)}
