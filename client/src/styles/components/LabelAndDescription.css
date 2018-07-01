@@ -3,6 +3,7 @@
   align-items: center;
   line-height: 20px;
   font-size: 12px;
+  justify-content: space-between;
 }
 
 .label-and-desc__label {

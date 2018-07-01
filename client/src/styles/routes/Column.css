@@ -17,6 +17,10 @@
   overflow-y: hidden;
 }
 
+.project-column__card--dragging {
+  opacity: 0.5;
+}
+
 .project-column__card .card__body {
   overflow-y: scroll;
   height: 96%;
