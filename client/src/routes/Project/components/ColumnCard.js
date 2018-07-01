@@ -17,7 +17,7 @@ const initialState = {
 
 const ColumnCardComponent = (props) => {
   const { column, onMenuItemClick, style, setWidth, className, prefixCls, state } = props;
-  const styles = {...style, width: setWidth ? state.containerWidth : '100%'};
+  const styles = {...style, width: setWidth ? state.containerWidth : null};
   const columnCardClass = `${prefixCls} ${className}`;
 
   const overlay = (
