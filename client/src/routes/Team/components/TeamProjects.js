@@ -9,7 +9,7 @@ import { withProjectsByTeamId } from "../../../api/project/withProjectsByTeamId"
 import { formatDate } from "../../../shared/utils/formatData";
 
 const TeamProjectComponent = (props) => {
-  const { projects } = props;
+  const { projects, teamId } = props;
 
   return (
     <div className="team-projects">
@@ -21,12 +21,12 @@ const TeamProjectComponent = (props) => {
       <div className="grid">
 
         <div className="col-3_md-6_sm-12">
-          <AddProjectButton/>
+          <AddProjectButton teamId={teamId}/>
         </div>
 
         {projects.map(project => (
           <div key={project.id} className="col-3_md-6_sm-12">
-            <TeamCard title={project.title} subTitle={project.description}>
+            <TeamCard title={project.title} subTitle={project.description} linkUrl={project.id.toString()}>
               <LabelAndDescription
                 label="Created by:"
                 description={project.creator.username}
