@@ -59,7 +59,7 @@ ColumnPreviewComponent.propTypes = {
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired
   }),
-  isDragging: PropTypes.bool.isRequired
+  isDragging: PropTypes.bool
 };
 
 let updates = 0;
